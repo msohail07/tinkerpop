@@ -121,7 +121,7 @@ def methodsWithSpecificTypes = ["constant": useE2,
                                 "range": useE2,
                                 "sum": useE2,
                                 "tail": useE2,
-                                "unfold": useE2]
+                                "unfold": useE2]                                                        
 
 def getCSharpGenericTypeParam = { typeName ->
     def tParam = ""
@@ -147,7 +147,7 @@ def toCSharpType = { name ->
 
 def toCSharpMethodName = { symbol -> (String) Character.toUpperCase(symbol.charAt(0)) + symbol.substring(1) }
 
-def getJavaParameterTypeNames = { method ->
+def getJavaGenericTypeParameterTypeNames = { method ->
     def typeArguments = method.genericReturnType.actualTypeArguments;
     return typeArguments.
             collect { (it instanceof Class) ? ((Class)it).simpleName : it.typeName }.
@@ -160,6 +160,13 @@ def getJavaParameterTypeNames = { method ->
                 }
                 name
             }
+}
+
+def getJavaParameterTypeNames = { method ->
+    return method.parameters.
+            collect { param ->
+                param.type.simpleName
+            } 
 }
 
 def toCSharpParamString = { param ->
@@ -191,6 +198,32 @@ def getParamNames = { parameters ->
             param.name
         }
 }
+
+def hasMethodNoGenericCounterPartInGraphTraversal = { method ->
+    def parameterTypeNames = getJavaParameterTypeNames(method)
+    if (method.name.equals("fold")) {
+        return parameterTypeNames.size() == 0
+    }
+    if (method.name.equals("limit")) {
+        if (parameterTypeNames.size() == 1) {
+            return parameterTypeNames[0].equals("long")
+        }
+    }
+    if (method.name.equals("range")) {
+        if (parameterTypeNames.size() == 2) {
+            return parameterTypeNames[0].equals("long") && parameterTypeNames[1].equals("long")
+        }
+    }
+    if (method.name.equals("tail")) {
+        if (parameterTypeNames.size() == 0) {
+            return true
+        }
+        if (parameterTypeNames.size() == 1) {
+            return parameterTypeNames[0].equals("long")
+        }
+    }
+    return false
+}  
 
 def binding = ["pmethods": P.class.getMethods().
                                  findAll { Modifier.isStatic(it.getModifiers()) }.
@@ -226,7 +259,7 @@ def binding = ["pmethods": P.class.getMethods().
                                         findAll { !it.name.equals("clone") && !it.name.equals("iterate") }.
                                         sort { a, b -> a.name <=> b.name }.
                                         collect { javaMethod ->
-                                            def typeNames = getJavaParameterTypeNames(javaMethod)
+                                            def typeNames = getJavaGenericTypeParameterTypeNames(javaMethod)
                                             def t1 = toCSharpType(typeNames[0])
                                             def t2 = toCSharpType(typeNames[1])
                                             def tParam = getCSharpGenericTypeParam(t2)
@@ -240,7 +273,7 @@ def binding = ["pmethods": P.class.getMethods().
                                         findAll { !it.name.equals("__") && !it.name.equals("start") }.
                                         sort { it.name }.
                                         collect { javaMethod ->
-                                            def typeNames = getJavaParameterTypeNames(javaMethod)
+                                            def typeNames = getJavaGenericTypeParameterTypeNames(javaMethod)
                                             def t2 = toCSharpType(typeNames[1])
                                             def tParam = getCSharpGenericTypeParam(t2)
                                             def specificTypes = methodsWithSpecificTypes.get(javaMethod.name)
@@ -250,7 +283,8 @@ def binding = ["pmethods": P.class.getMethods().
                                             }
                                             def parameters = getCSharpParamString(javaMethod)
                                             def paramNames = getParamNames(javaMethod.parameters).join(", ")
-                                            return ["methodName": javaMethod.name, "t2":t2, "tParam":tParam, "parameters":parameters, "paramNames":paramNames]
+                                            def callGenericTypeArg = hasMethodNoGenericCounterPartInGraphTraversal(javaMethod) ? "" : tParam
+                                            return ["methodName": javaMethod.name, "t2":t2, "tParam":tParam, "parameters":parameters, "paramNames":paramNames, "callGenericTypeArg":callGenericTypeArg]
                                         },
                "toCSharpMethodName": toCSharpMethodName]
 
