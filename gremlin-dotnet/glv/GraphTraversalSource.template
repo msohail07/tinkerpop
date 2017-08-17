@@ -72,11 +72,12 @@ namespace Gremlin.Net.Process.Traversal
         }
 
 <% sourceStepMethods.each{ method -> %>
-        public GraphTraversalSource <%= toCSharpMethodName.call(method) %>(params object[] args)
+        public GraphTraversalSource <%= toCSharpMethodName.call(method.methodName) %>(<%= method.parameters %>)
         {
             var source = new GraphTraversalSource(new List<ITraversalStrategy>(TraversalStrategies),
                                                   new Bytecode(Bytecode));
-            source.Bytecode.AddSource("<%= method %>", args);
+            var args = new List<object> { <%= method.paramNames %> };
+            source.Bytecode.AddSource("<%= method.methodName %>", args);
             return source;
         }
 <% } %>
@@ -119,9 +120,10 @@ namespace Gremlin.Net.Process.Traversal
         ///     Spawns a <see cref="GraphTraversal{SType, EType}" /> off this graph traversal source and adds the <%= method.methodName %> step to that
         ///     traversal.
         /// </summary>
-        public GraphTraversal< <%= method.typeArguments.join(",") %> > <%= toCSharpMethodName.call(method.methodName) %>(params object[] args)
+        public GraphTraversal< <%= method.typeArguments.join(",") %> > <%= toCSharpMethodName.call(method.methodName) %>(<%= method.parameters %>)
         {
             var traversal = new GraphTraversal< <%= method.typeArguments.join(",") %> >(TraversalStrategies, new Bytecode(Bytecode));
+            var args = new List<object> { <%= method.paramNames %> };
             traversal.Bytecode.AddStep("<%= method.methodName %>", args);
             return traversal;
         }

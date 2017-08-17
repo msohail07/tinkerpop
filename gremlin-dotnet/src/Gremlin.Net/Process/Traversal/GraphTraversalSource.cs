@@ -72,50 +72,146 @@ namespace Gremlin.Net.Process.Traversal
         }
 
 
-        public GraphTraversalSource WithBulk(params object[] args)
+        public GraphTraversalSource WithBulk(bool useBulk)
         {
             var source = new GraphTraversalSource(new List<ITraversalStrategy>(TraversalStrategies),
                                                   new Bytecode(Bytecode));
+            var args = new List<object> { useBulk };
             source.Bytecode.AddSource("withBulk", args);
             return source;
         }
 
-        public GraphTraversalSource WithPath(params object[] args)
+        public GraphTraversalSource WithPath()
         {
             var source = new GraphTraversalSource(new List<ITraversalStrategy>(TraversalStrategies),
                                                   new Bytecode(Bytecode));
+            var args = new List<object> {  };
             source.Bytecode.AddSource("withPath", args);
             return source;
         }
 
-        public GraphTraversalSource WithSack(params object[] args)
+        public GraphTraversalSource WithSack(object initialValue, object splitOperator, object mergeOperator)
         {
             var source = new GraphTraversalSource(new List<ITraversalStrategy>(TraversalStrategies),
                                                   new Bytecode(Bytecode));
+            var args = new List<object> { initialValue, splitOperator, mergeOperator };
             source.Bytecode.AddSource("withSack", args);
             return source;
         }
 
-        public GraphTraversalSource WithSideEffect(params object[] args)
+        public GraphTraversalSource WithSack(object initialValue, object splitOperator, object mergeOperator)
         {
             var source = new GraphTraversalSource(new List<ITraversalStrategy>(TraversalStrategies),
                                                   new Bytecode(Bytecode));
+            var args = new List<object> { initialValue, splitOperator, mergeOperator };
+            source.Bytecode.AddSource("withSack", args);
+            return source;
+        }
+
+        public GraphTraversalSource WithSack(object initialValue)
+        {
+            var source = new GraphTraversalSource(new List<ITraversalStrategy>(TraversalStrategies),
+                                                  new Bytecode(Bytecode));
+            var args = new List<object> { initialValue };
+            source.Bytecode.AddSource("withSack", args);
+            return source;
+        }
+
+        public GraphTraversalSource WithSack(object initialValue)
+        {
+            var source = new GraphTraversalSource(new List<ITraversalStrategy>(TraversalStrategies),
+                                                  new Bytecode(Bytecode));
+            var args = new List<object> { initialValue };
+            source.Bytecode.AddSource("withSack", args);
+            return source;
+        }
+
+        public GraphTraversalSource WithSack(object initialValue, object splitOperator)
+        {
+            var source = new GraphTraversalSource(new List<ITraversalStrategy>(TraversalStrategies),
+                                                  new Bytecode(Bytecode));
+            var args = new List<object> { initialValue, splitOperator };
+            source.Bytecode.AddSource("withSack", args);
+            return source;
+        }
+
+        public GraphTraversalSource WithSack(object initialValue, object mergeOperator)
+        {
+            var source = new GraphTraversalSource(new List<ITraversalStrategy>(TraversalStrategies),
+                                                  new Bytecode(Bytecode));
+            var args = new List<object> { initialValue, mergeOperator };
+            source.Bytecode.AddSource("withSack", args);
+            return source;
+        }
+
+        public GraphTraversalSource WithSack(object initialValue, object mergeOperator)
+        {
+            var source = new GraphTraversalSource(new List<ITraversalStrategy>(TraversalStrategies),
+                                                  new Bytecode(Bytecode));
+            var args = new List<object> { initialValue, mergeOperator };
+            source.Bytecode.AddSource("withSack", args);
+            return source;
+        }
+
+        public GraphTraversalSource WithSack(object initialValue, object splitOperator)
+        {
+            var source = new GraphTraversalSource(new List<ITraversalStrategy>(TraversalStrategies),
+                                                  new Bytecode(Bytecode));
+            var args = new List<object> { initialValue, splitOperator };
+            source.Bytecode.AddSource("withSack", args);
+            return source;
+        }
+
+        public GraphTraversalSource WithSideEffect(string key, object initialValue)
+        {
+            var source = new GraphTraversalSource(new List<ITraversalStrategy>(TraversalStrategies),
+                                                  new Bytecode(Bytecode));
+            var args = new List<object> { key, initialValue };
             source.Bytecode.AddSource("withSideEffect", args);
             return source;
         }
 
-        public GraphTraversalSource WithStrategies(params object[] args)
+        public GraphTraversalSource WithSideEffect(string key, object initialValue)
         {
             var source = new GraphTraversalSource(new List<ITraversalStrategy>(TraversalStrategies),
                                                   new Bytecode(Bytecode));
+            var args = new List<object> { key, initialValue };
+            source.Bytecode.AddSource("withSideEffect", args);
+            return source;
+        }
+
+        public GraphTraversalSource WithSideEffect(string key, object initialValue, object reducer)
+        {
+            var source = new GraphTraversalSource(new List<ITraversalStrategy>(TraversalStrategies),
+                                                  new Bytecode(Bytecode));
+            var args = new List<object> { key, initialValue, reducer };
+            source.Bytecode.AddSource("withSideEffect", args);
+            return source;
+        }
+
+        public GraphTraversalSource WithSideEffect(string key, object initialValue, object reducer)
+        {
+            var source = new GraphTraversalSource(new List<ITraversalStrategy>(TraversalStrategies),
+                                                  new Bytecode(Bytecode));
+            var args = new List<object> { key, initialValue, reducer };
+            source.Bytecode.AddSource("withSideEffect", args);
+            return source;
+        }
+
+        public GraphTraversalSource WithStrategies(params ITraversalStrategy[] traversalStrategies)
+        {
+            var source = new GraphTraversalSource(new List<ITraversalStrategy>(TraversalStrategies),
+                                                  new Bytecode(Bytecode));
+            var args = new List<object> { traversalStrategies };
             source.Bytecode.AddSource("withStrategies", args);
             return source;
         }
 
-        public GraphTraversalSource WithoutStrategies(params object[] args)
+        public GraphTraversalSource WithoutStrategies(params Class[] traversalStrategyClasses)
         {
             var source = new GraphTraversalSource(new List<ITraversalStrategy>(TraversalStrategies),
                                                   new Bytecode(Bytecode));
+            var args = new List<object> { traversalStrategyClasses };
             source.Bytecode.AddSource("withoutStrategies", args);
             return source;
         }
@@ -159,9 +255,10 @@ namespace Gremlin.Net.Process.Traversal
         ///     Spawns a <see cref="GraphTraversal{SType, EType}" /> off this graph traversal source and adds the E step to that
         ///     traversal.
         /// </summary>
-        public GraphTraversal< Edge,Edge > E(params object[] args)
+        public GraphTraversal< Edge,Edge > E(params object[] edgesIds)
         {
             var traversal = new GraphTraversal< Edge,Edge >(TraversalStrategies, new Bytecode(Bytecode));
+            var args = new List<object> { edgesIds };
             traversal.Bytecode.AddStep("E", args);
             return traversal;
         }
@@ -170,9 +267,10 @@ namespace Gremlin.Net.Process.Traversal
         ///     Spawns a <see cref="GraphTraversal{SType, EType}" /> off this graph traversal source and adds the V step to that
         ///     traversal.
         /// </summary>
-        public GraphTraversal< Vertex,Vertex > V(params object[] args)
+        public GraphTraversal< Vertex,Vertex > V(params object[] vertexIds)
         {
             var traversal = new GraphTraversal< Vertex,Vertex >(TraversalStrategies, new Bytecode(Bytecode));
+            var args = new List<object> { vertexIds };
             traversal.Bytecode.AddStep("V", args);
             return traversal;
         }
@@ -181,9 +279,34 @@ namespace Gremlin.Net.Process.Traversal
         ///     Spawns a <see cref="GraphTraversal{SType, EType}" /> off this graph traversal source and adds the addV step to that
         ///     traversal.
         /// </summary>
-        public GraphTraversal< Vertex,Vertex > AddV(params object[] args)
+        public GraphTraversal< Vertex,Vertex > AddV()
         {
             var traversal = new GraphTraversal< Vertex,Vertex >(TraversalStrategies, new Bytecode(Bytecode));
+            var args = new List<object> {  };
+            traversal.Bytecode.AddStep("addV", args);
+            return traversal;
+        }
+
+        /// <summary>
+        ///     Spawns a <see cref="GraphTraversal{SType, EType}" /> off this graph traversal source and adds the addV step to that
+        ///     traversal.
+        /// </summary>
+        public GraphTraversal< Vertex,Vertex > AddV(params object[] keyValues)
+        {
+            var traversal = new GraphTraversal< Vertex,Vertex >(TraversalStrategies, new Bytecode(Bytecode));
+            var args = new List<object> { keyValues };
+            traversal.Bytecode.AddStep("addV", args);
+            return traversal;
+        }
+
+        /// <summary>
+        ///     Spawns a <see cref="GraphTraversal{SType, EType}" /> off this graph traversal source and adds the addV step to that
+        ///     traversal.
+        /// </summary>
+        public GraphTraversal< Vertex,Vertex > AddV(string label)
+        {
+            var traversal = new GraphTraversal< Vertex,Vertex >(TraversalStrategies, new Bytecode(Bytecode));
+            var args = new List<object> { label };
             traversal.Bytecode.AddStep("addV", args);
             return traversal;
         }
