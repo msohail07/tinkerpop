@@ -22,6 +22,25 @@ image::https://raw.githubusercontent.com/apache/tinkerpop/master/docs/static/ima
 
 *Nine Inch Gremlins*
 
+TinkerPop 3.2.7
+---------------
+
+*Release Date: NOT OFFICIALLY RELEASED YET*
+
+Upgrading for Users
+~~~~~~~~~~~~~~~~~~~
+
+Please see the link:https://github.com/apache/tinkerpop/blob/3.2.7/CHANGELOG.asciidoc#release-3-2-7[changelog] for a complete list of all the modifications that are part of this release.
+
+Embedded Remote Connection
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+As Gremlin Language Variants (GLVs) expand their usage and use of `withRemote()` becomes more common, the need to mock
+the "remote" in unit tests increases. To simplify mocking in Java, the new `EmbeddedRemoteConnection` provides a
+simple way to provide a "remote" that is actually local to the same JVM.
+
+See: link:https://issues.apache.org/jira/browse/TINKERPOP-1756[TINKERPOP-1756]
+
 TinkerPop 3.2.6
 ---------------
 
