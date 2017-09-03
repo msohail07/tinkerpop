@@ -45,7 +45,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, <%= method.t2 %>> <%= toCSharpMethodName.call(method.methodName) %><%= method.tParam %>(<%= method.parameters %>)
         {
-            return new GraphTraversal<object, <%= method.t2 %>>().<%= toCSharpMethodName.call(method.methodName) %><%= method.callGenericTypeArg %>(<%= method.paramNames %>);
+            return new GraphTraversal<object, <%= method.graphTraversalT2 %>>().<%= toCSharpMethodName.call(method.methodName) %><%= method.callGenericTypeArg %>(<%= method.paramNames %>);
         }
 <% } %>
     }

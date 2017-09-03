@@ -223,7 +223,16 @@ def hasMethodNoGenericCounterPartInGraphTraversal = { method ->
         }
     }
     return false
-}  
+}
+
+def t2withSpecialGraphTraversalt2 = ["IList<E2>": "E2"]
+
+def getGraphTraversalT2ForT2 = { t2 ->
+    if (t2withSpecialGraphTraversalt2.containsKey(t2)) {
+        return t2withSpecialGraphTraversalt2.get(t2)
+    }
+    return t2
+}
 
 def binding = ["pmethods": P.class.getMethods().
                                  findAll { Modifier.isStatic(it.getModifiers()) }.
@@ -284,7 +293,8 @@ def binding = ["pmethods": P.class.getMethods().
                                             def parameters = getCSharpParamString(javaMethod)
                                             def paramNames = getParamNames(javaMethod.parameters).join(", ")
                                             def callGenericTypeArg = hasMethodNoGenericCounterPartInGraphTraversal(javaMethod) ? "" : tParam
-                                            return ["methodName": javaMethod.name, "t2":t2, "tParam":tParam, "parameters":parameters, "paramNames":paramNames, "callGenericTypeArg":callGenericTypeArg]
+                                            def graphTraversalT2 = getGraphTraversalT2ForT2(t2)
+                                            return ["methodName": javaMethod.name, "t2":t2, "tParam":tParam, "parameters":parameters, "paramNames":paramNames, "callGenericTypeArg":callGenericTypeArg, "graphTraversalT2":graphTraversalT2]
                                         },
                "toCSharpMethodName": toCSharpMethodName]
 
