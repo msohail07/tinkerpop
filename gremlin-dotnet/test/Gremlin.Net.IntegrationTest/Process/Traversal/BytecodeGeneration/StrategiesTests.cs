@@ -50,7 +50,7 @@ namespace Gremlin.Net.IntegrationTest.Process.Traversal.BytecodeGeneration
 
             Assert.Equal("withoutStrategies", bytecode.SourceInstructions[1].OperatorName);
             Assert.Equal(1, bytecode.SourceInstructions[1].Arguments.Length);
-            Assert.Equal(new ReadOnlyStrategy(), bytecode.SourceInstructions[1].Arguments[0]);
+            Assert.Equal(typeof(ReadOnlyStrategy), bytecode.SourceInstructions[1].Arguments[0]);
         }
 
         [Fact]
@@ -79,7 +79,7 @@ namespace Gremlin.Net.IntegrationTest.Process.Traversal.BytecodeGeneration
             Assert.Equal(1, bytecode.SourceInstructions.Count);
             Assert.Equal(1, bytecode.SourceInstructions[0].Arguments.Length);
             Assert.Equal("withoutStrategies", bytecode.SourceInstructions[0].OperatorName);
-            Assert.Equal(new ReadOnlyStrategy(), bytecode.SourceInstructions[0].Arguments[0]);
+            Assert.Equal(typeof(ReadOnlyStrategy), bytecode.SourceInstructions[0].Arguments[0]);
         }
 
         [Fact]
