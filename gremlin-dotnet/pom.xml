@@ -177,18 +177,20 @@ def toCSharpParamString = { param ->
     }
 
 def getJavaParamTypeString = { method ->
-    def parameters = method.parameters;
-    if (parameters.length == 0)
-        return ""
-    return parameters.collect { param ->
-                        param.type.simpleName
-                    }.join(",")
+    getJavaParameterTypeNames(method).join(",")
+}
+
+def getCSharpParamTypeString = { method ->
+    return method.parameters.
+            collect { param ->
+                toCSharpType(param.type.simpleName)
+            }.join(",")
 }
 
 def getCSharpParamString = { method ->
     def parameters = method.parameters;
     if (parameters.length == 0)
-        return ""
+        return ""        
     def csharpParameters = parameters.
             init().
             collect { param ->
@@ -260,6 +262,7 @@ def binding = ["pmethods": P.class.getMethods().
                                                     !it.name.equals(TraversalSource.Symbols.withComputer)
                                         }.
                                         sort { a, b -> a.name <=> b.name ?: getJavaParamTypeString(a) <=> getJavaParamTypeString(b) }.
+                                        unique { a,b -> a.name <=> b.name ?: getCSharpParamTypeString(a) <=> getCSharpParamTypeString(b) }.
                                         collect { javaMethod ->
                                             def parameters = getCSharpParamString(javaMethod)
                                             def paramNames = getParamNames(javaMethod.parameters).join(", ")
@@ -268,6 +271,7 @@ def binding = ["pmethods": P.class.getMethods().
                "sourceSpawnMethods": GraphTraversalSource.getMethods(). // SPAWN STEPS
                                         findAll { GraphTraversal.class.equals(it.returnType) && !it.name.equals('inject')}.                                                                              
                                         sort { a, b -> a.name <=> b.name ?: getJavaParamTypeString(a) <=> getJavaParamTypeString(b) }.
+                                        unique { a,b -> a.name <=> b.name ?: getCSharpParamTypeString(a) <=> getCSharpParamTypeString(b) }.
                                         collect { javaMethod ->
                                             def typeArguments = javaMethod.genericReturnType.actualTypeArguments.collect{t -> ((java.lang.Class)t).simpleName}
                                             def parameters = getCSharpParamString(javaMethod)
@@ -278,6 +282,7 @@ def binding = ["pmethods": P.class.getMethods().
                                         findAll { GraphTraversal.class.equals(it.returnType) }.
                                         findAll { !it.name.equals("clone") && !it.name.equals("iterate") }.
                                         sort { a, b -> a.name <=> b.name ?: getJavaParamTypeString(a) <=> getJavaParamTypeString(b) }.
+                                        unique { a,b -> a.name <=> b.name ?: getCSharpParamTypeString(a) <=> getCSharpParamTypeString(b) }.
                                         collect { javaMethod ->
                                             def typeNames = getJavaGenericTypeParameterTypeNames(javaMethod)
                                             def t1 = toCSharpType(typeNames[0])
@@ -292,6 +297,7 @@ def binding = ["pmethods": P.class.getMethods().
                                         findAll { Modifier.isStatic(it.getModifiers()) }.
                                         findAll { !it.name.equals("__") && !it.name.equals("start") }.
                                         sort { a, b -> a.name <=> b.name ?: getJavaParamTypeString(a) <=> getJavaParamTypeString(b) }.
+                                        unique { a,b -> a.name <=> b.name ?: getCSharpParamTypeString(a) <=> getCSharpParamTypeString(b) }.
                                         collect { javaMethod ->
                                             def typeNames = getJavaGenericTypeParameterTypeNames(javaMethod)
                                             def t2 = toCSharpType(typeNames[1])

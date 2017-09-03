@@ -275,16 +275,6 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the by step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E > By (object function)
-        {
-            var args = new List<object> { function };
-            Bytecode.AddStep("by", args);
-            return Wrap< S , E >(this);
-        }
-
-        /// <summary>
-        ///     Adds the by step to this <see cref="GraphTraversal{SType, EType}" />.
-        /// </summary>
         public GraphTraversal< S , E > By (object function, object comparator)
         {
             var args = new List<object> { function, comparator };
