@@ -76,8 +76,7 @@ namespace Gremlin.Net.Process.Traversal
         {
             var source = new GraphTraversalSource(new List<ITraversalStrategy>(TraversalStrategies),
                                                   new Bytecode(Bytecode));
-            var args = new List<object> { <%= method.paramNames %> };
-            source.Bytecode.AddSource("<%= method.methodName %>", args);
+            source.Bytecode.AddSource("<%= method.methodName %>"<% if (method.parameters) out.print ', '+ method.paramNames %>);
             return source;
         }
 <% } %>
@@ -123,8 +122,7 @@ namespace Gremlin.Net.Process.Traversal
         public GraphTraversal< <%= method.typeArguments.join(",") %> > <%= toCSharpMethodName.call(method.methodName) %>(<%= method.parameters %>)
         {
             var traversal = new GraphTraversal< <%= method.typeArguments.join(",") %> >(TraversalStrategies, new Bytecode(Bytecode));
-            var args = new List<object> { <%= method.paramNames %> };
-            traversal.Bytecode.AddStep("<%= method.methodName %>", args);
+            traversal.Bytecode.AddStep("<%= method.methodName %>"<% if (method.parameters) out.print ', '+ method.paramNames %>);
             return traversal;
         }
 <% } %>

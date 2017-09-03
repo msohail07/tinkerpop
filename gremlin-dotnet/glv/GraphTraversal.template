@@ -67,8 +67,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public GraphTraversal< <%= method.t1 %> , <%= method.t2 %> > <%= toCSharpMethodName.call(method.methodName) %><%= method.tParam %> (<%= method.parameters %>)
         {
-            var args = new List<object> { <%= method.paramNames %> };
-            Bytecode.AddStep("<%= method.methodName %>", args);
+            Bytecode.AddStep("<%= method.methodName %>"<% if (method.parameters) out.print ', '+ method.paramNames %>);
             return Wrap< <%= method.t1 %> , <%= method.t2 %> >(this);
         }
 <% } %>
