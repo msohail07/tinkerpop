@@ -75,9 +75,9 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the addE step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , Edge > AddE (Direction direction, string firstVertexKeyOrEdgeLabel, string edgeLabelOrSecondVertexKey, params object[] propertyKeyValues)
+        public GraphTraversal< S , Edge > AddE (string edgeLabel)
         {
-            var args = new List<object> { direction, firstVertexKeyOrEdgeLabel, edgeLabelOrSecondVertexKey, propertyKeyValues };
+            var args = new List<object> { edgeLabel };
             Bytecode.AddStep("addE", args);
             return Wrap< S , Edge >(this);
         }
@@ -85,9 +85,9 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the addE step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , Edge > AddE (string edgeLabel)
+        public GraphTraversal< S , Edge > AddE (Direction direction, string firstVertexKeyOrEdgeLabel, string edgeLabelOrSecondVertexKey, params object[] propertyKeyValues)
         {
-            var args = new List<object> { edgeLabel };
+            var args = new List<object> { direction, firstVertexKeyOrEdgeLabel, edgeLabelOrSecondVertexKey, propertyKeyValues };
             Bytecode.AddStep("addE", args);
             return Wrap< S , Edge >(this);
         }
@@ -115,9 +115,9 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the addV step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , Vertex > AddV (string vertexLabel)
+        public GraphTraversal< S , Vertex > AddV (params object[] propertyKeyValues)
         {
-            var args = new List<object> { vertexLabel };
+            var args = new List<object> { propertyKeyValues };
             Bytecode.AddStep("addV", args);
             return Wrap< S , Vertex >(this);
         }
@@ -135,9 +135,9 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the addV step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , Vertex > AddV (params object[] propertyKeyValues)
+        public GraphTraversal< S , Vertex > AddV (string vertexLabel)
         {
-            var args = new List<object> { propertyKeyValues };
+            var args = new List<object> { vertexLabel };
             Bytecode.AddStep("addV", args);
             return Wrap< S , Vertex >(this);
         }
@@ -175,9 +175,9 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the barrier step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E > Barrier (object barrierConsumer)
+        public GraphTraversal< S , E > Barrier ()
         {
-            var args = new List<object> { barrierConsumer };
+            var args = new List<object> {  };
             Bytecode.AddStep("barrier", args);
             return Wrap< S , E >(this);
         }
@@ -185,9 +185,9 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the barrier step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E > Barrier ()
+        public GraphTraversal< S , E > Barrier (object barrierConsumer)
         {
-            var args = new List<object> {  };
+            var args = new List<object> { barrierConsumer };
             Bytecode.AddStep("barrier", args);
             return Wrap< S , E >(this);
         }
@@ -255,56 +255,6 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the by step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E > By (Order order)
-        {
-            var args = new List<object> { order };
-            Bytecode.AddStep("by", args);
-            return Wrap< S , E >(this);
-        }
-
-        /// <summary>
-        ///     Adds the by step to this <see cref="GraphTraversal{SType, EType}" />.
-        /// </summary>
-        public GraphTraversal< S , E > By (string key, object comparator)
-        {
-            var args = new List<object> { key, comparator };
-            Bytecode.AddStep("by", args);
-            return Wrap< S , E >(this);
-        }
-
-        /// <summary>
-        ///     Adds the by step to this <see cref="GraphTraversal{SType, EType}" />.
-        /// </summary>
-        public GraphTraversal< S , E > By (string key)
-        {
-            var args = new List<object> { key };
-            Bytecode.AddStep("by", args);
-            return Wrap< S , E >(this);
-        }
-
-        /// <summary>
-        ///     Adds the by step to this <see cref="GraphTraversal{SType, EType}" />.
-        /// </summary>
-        public GraphTraversal< S , E > By (object function)
-        {
-            var args = new List<object> { function };
-            Bytecode.AddStep("by", args);
-            return Wrap< S , E >(this);
-        }
-
-        /// <summary>
-        ///     Adds the by step to this <see cref="GraphTraversal{SType, EType}" />.
-        /// </summary>
-        public GraphTraversal< S , E > By (object comparator)
-        {
-            var args = new List<object> { comparator };
-            Bytecode.AddStep("by", args);
-            return Wrap< S , E >(this);
-        }
-
-        /// <summary>
-        ///     Adds the by step to this <see cref="GraphTraversal{SType, EType}" />.
-        /// </summary>
         public GraphTraversal< S , E > By (ITraversal traversal)
         {
             var args = new List<object> { traversal };
@@ -325,9 +275,59 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the by step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
+        public GraphTraversal< S , E > By (T token)
+        {
+            var args = new List<object> { token };
+            Bytecode.AddStep("by", args);
+            return Wrap< S , E >(this);
+        }
+
+        /// <summary>
+        ///     Adds the by step to this <see cref="GraphTraversal{SType, EType}" />.
+        /// </summary>
+        public GraphTraversal< S , E > By (string key)
+        {
+            var args = new List<object> { key };
+            Bytecode.AddStep("by", args);
+            return Wrap< S , E >(this);
+        }
+
+        /// <summary>
+        ///     Adds the by step to this <see cref="GraphTraversal{SType, EType}" />.
+        /// </summary>
+        public GraphTraversal< S , E > By (Order order)
+        {
+            var args = new List<object> { order };
+            Bytecode.AddStep("by", args);
+            return Wrap< S , E >(this);
+        }
+
+        /// <summary>
+        ///     Adds the by step to this <see cref="GraphTraversal{SType, EType}" />.
+        /// </summary>
         public GraphTraversal< S , E > By (object function, object comparator)
         {
             var args = new List<object> { function, comparator };
+            Bytecode.AddStep("by", args);
+            return Wrap< S , E >(this);
+        }
+
+        /// <summary>
+        ///     Adds the by step to this <see cref="GraphTraversal{SType, EType}" />.
+        /// </summary>
+        public GraphTraversal< S , E > By (object comparator)
+        {
+            var args = new List<object> { comparator };
+            Bytecode.AddStep("by", args);
+            return Wrap< S , E >(this);
+        }
+
+        /// <summary>
+        ///     Adds the by step to this <see cref="GraphTraversal{SType, EType}" />.
+        /// </summary>
+        public GraphTraversal< S , E > By (object function)
+        {
+            var args = new List<object> { function };
             Bytecode.AddStep("by", args);
             return Wrap< S , E >(this);
         }
@@ -345,9 +345,9 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the by step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E > By (T token)
+        public GraphTraversal< S , E > By (string key, object comparator)
         {
-            var args = new List<object> { token };
+            var args = new List<object> { key, comparator };
             Bytecode.AddStep("by", args);
             return Wrap< S , E >(this);
         }
@@ -365,39 +365,9 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the choose step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E2 > Choose<E2> (ITraversal traversalPredicate, ITraversal trueChoice)
+        public GraphTraversal< S , E2 > Choose<E2> (TraversalPredicate choosePredicate, ITraversal trueChoice)
         {
-            var args = new List<object> { traversalPredicate, trueChoice };
-            Bytecode.AddStep("choose", args);
-            return Wrap< S , E2 >(this);
-        }
-
-        /// <summary>
-        ///     Adds the choose step to this <see cref="GraphTraversal{SType, EType}" />.
-        /// </summary>
-        public GraphTraversal< S , E2 > Choose<E2> (ITraversal traversalPredicate, ITraversal trueChoice, ITraversal falseChoice)
-        {
-            var args = new List<object> { traversalPredicate, trueChoice, falseChoice };
-            Bytecode.AddStep("choose", args);
-            return Wrap< S , E2 >(this);
-        }
-
-        /// <summary>
-        ///     Adds the choose step to this <see cref="GraphTraversal{SType, EType}" />.
-        /// </summary>
-        public GraphTraversal< S , E2 > Choose<E2> (ITraversal choiceTraversal)
-        {
-            var args = new List<object> { choiceTraversal };
-            Bytecode.AddStep("choose", args);
-            return Wrap< S , E2 >(this);
-        }
-
-        /// <summary>
-        ///     Adds the choose step to this <see cref="GraphTraversal{SType, EType}" />.
-        /// </summary>
-        public GraphTraversal< S , E2 > Choose<E2> (object choiceFunction)
-        {
-            var args = new List<object> { choiceFunction };
+            var args = new List<object> { choosePredicate, trueChoice };
             Bytecode.AddStep("choose", args);
             return Wrap< S , E2 >(this);
         }
@@ -415,9 +385,39 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the choose step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E2 > Choose<E2> (TraversalPredicate choosePredicate, ITraversal trueChoice)
+        public GraphTraversal< S , E2 > Choose<E2> (object choiceFunction)
         {
-            var args = new List<object> { choosePredicate, trueChoice };
+            var args = new List<object> { choiceFunction };
+            Bytecode.AddStep("choose", args);
+            return Wrap< S , E2 >(this);
+        }
+
+        /// <summary>
+        ///     Adds the choose step to this <see cref="GraphTraversal{SType, EType}" />.
+        /// </summary>
+        public GraphTraversal< S , E2 > Choose<E2> (ITraversal traversalPredicate, ITraversal trueChoice, ITraversal falseChoice)
+        {
+            var args = new List<object> { traversalPredicate, trueChoice, falseChoice };
+            Bytecode.AddStep("choose", args);
+            return Wrap< S , E2 >(this);
+        }
+
+        /// <summary>
+        ///     Adds the choose step to this <see cref="GraphTraversal{SType, EType}" />.
+        /// </summary>
+        public GraphTraversal< S , E2 > Choose<E2> (ITraversal traversalPredicate, ITraversal trueChoice)
+        {
+            var args = new List<object> { traversalPredicate, trueChoice };
+            Bytecode.AddStep("choose", args);
+            return Wrap< S , E2 >(this);
+        }
+
+        /// <summary>
+        ///     Adds the choose step to this <see cref="GraphTraversal{SType, EType}" />.
+        /// </summary>
+        public GraphTraversal< S , E2 > Choose<E2> (ITraversal choiceTraversal)
+        {
+            var args = new List<object> { choiceTraversal };
             Bytecode.AddStep("choose", args);
             return Wrap< S , E2 >(this);
         }
@@ -515,9 +515,9 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the emit step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E > Emit (ITraversal emitTraversal)
+        public GraphTraversal< S , E > Emit ()
         {
-            var args = new List<object> { emitTraversal };
+            var args = new List<object> {  };
             Bytecode.AddStep("emit", args);
             return Wrap< S , E >(this);
         }
@@ -535,20 +535,10 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the emit step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E > Emit ()
+        public GraphTraversal< S , E > Emit (ITraversal emitTraversal)
         {
-            var args = new List<object> {  };
+            var args = new List<object> { emitTraversal };
             Bytecode.AddStep("emit", args);
-            return Wrap< S , E >(this);
-        }
-
-        /// <summary>
-        ///     Adds the filter step to this <see cref="GraphTraversal{SType, EType}" />.
-        /// </summary>
-        public GraphTraversal< S , E > Filter (TraversalPredicate predicate)
-        {
-            var args = new List<object> { predicate };
-            Bytecode.AddStep("filter", args);
             return Wrap< S , E >(this);
         }
 
@@ -563,13 +553,13 @@ namespace Gremlin.Net.Process.Traversal
         }
 
         /// <summary>
-        ///     Adds the flatMap step to this <see cref="GraphTraversal{SType, EType}" />.
+        ///     Adds the filter step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E2 > FlatMap<E2> (object function)
+        public GraphTraversal< S , E > Filter (TraversalPredicate predicate)
         {
-            var args = new List<object> { function };
-            Bytecode.AddStep("flatMap", args);
-            return Wrap< S , E2 >(this);
+            var args = new List<object> { predicate };
+            Bytecode.AddStep("filter", args);
+            return Wrap< S , E >(this);
         }
 
         /// <summary>
@@ -578,6 +568,16 @@ namespace Gremlin.Net.Process.Traversal
         public GraphTraversal< S , E2 > FlatMap<E2> (ITraversal flatMapTraversal)
         {
             var args = new List<object> { flatMapTraversal };
+            Bytecode.AddStep("flatMap", args);
+            return Wrap< S , E2 >(this);
+        }
+
+        /// <summary>
+        ///     Adds the flatMap step to this <see cref="GraphTraversal{SType, EType}" />.
+        /// </summary>
+        public GraphTraversal< S , E2 > FlatMap<E2> (object function)
+        {
+            var args = new List<object> { function };
             Bytecode.AddStep("flatMap", args);
             return Wrap< S , E2 >(this);
         }
@@ -625,6 +625,16 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the group step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
+        public GraphTraversal< S , E > Group (string sideEffectKey)
+        {
+            var args = new List<object> { sideEffectKey };
+            Bytecode.AddStep("group", args);
+            return Wrap< S , E >(this);
+        }
+
+        /// <summary>
+        ///     Adds the group step to this <see cref="GraphTraversal{SType, EType}" />.
+        /// </summary>
         public GraphTraversal< S , IDictionary<K, V> > Group<K, V> ()
         {
             var args = new List<object> {  };
@@ -633,12 +643,12 @@ namespace Gremlin.Net.Process.Traversal
         }
 
         /// <summary>
-        ///     Adds the group step to this <see cref="GraphTraversal{SType, EType}" />.
+        ///     Adds the groupCount step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E > Group (string sideEffectKey)
+        public GraphTraversal< S , E > GroupCount (string sideEffectKey)
         {
             var args = new List<object> { sideEffectKey };
-            Bytecode.AddStep("group", args);
+            Bytecode.AddStep("groupCount", args);
             return Wrap< S , E >(this);
         }
 
@@ -653,12 +663,12 @@ namespace Gremlin.Net.Process.Traversal
         }
 
         /// <summary>
-        ///     Adds the groupCount step to this <see cref="GraphTraversal{SType, EType}" />.
+        ///     Adds the groupV3d0 step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E > GroupCount (string sideEffectKey)
+        public GraphTraversal< S , E > GroupV3d0 (string sideEffectKey)
         {
             var args = new List<object> { sideEffectKey };
-            Bytecode.AddStep("groupCount", args);
+            Bytecode.AddStep("groupV3d0", args);
             return Wrap< S , E >(this);
         }
 
@@ -670,46 +680,6 @@ namespace Gremlin.Net.Process.Traversal
             var args = new List<object> {  };
             Bytecode.AddStep("groupV3d0", args);
             return Wrap< S , IDictionary<K, V> >(this);
-        }
-
-        /// <summary>
-        ///     Adds the groupV3d0 step to this <see cref="GraphTraversal{SType, EType}" />.
-        /// </summary>
-        public GraphTraversal< S , E > GroupV3d0 (string sideEffectKey)
-        {
-            var args = new List<object> { sideEffectKey };
-            Bytecode.AddStep("groupV3d0", args);
-            return Wrap< S , E >(this);
-        }
-
-        /// <summary>
-        ///     Adds the has step to this <see cref="GraphTraversal{SType, EType}" />.
-        /// </summary>
-        public GraphTraversal< S , E > Has (string propertyKey, TraversalPredicate predicate)
-        {
-            var args = new List<object> { propertyKey, predicate };
-            Bytecode.AddStep("has", args);
-            return Wrap< S , E >(this);
-        }
-
-        /// <summary>
-        ///     Adds the has step to this <see cref="GraphTraversal{SType, EType}" />.
-        /// </summary>
-        public GraphTraversal< S , E > Has (string propertyKey, ITraversal propertyTraversal)
-        {
-            var args = new List<object> { propertyKey, propertyTraversal };
-            Bytecode.AddStep("has", args);
-            return Wrap< S , E >(this);
-        }
-
-        /// <summary>
-        ///     Adds the has step to this <see cref="GraphTraversal{SType, EType}" />.
-        /// </summary>
-        public GraphTraversal< S , E > Has (string label, string propertyKey, object value)
-        {
-            var args = new List<object> { label, propertyKey, value };
-            Bytecode.AddStep("has", args);
-            return Wrap< S , E >(this);
         }
 
         /// <summary>
@@ -725,9 +695,9 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the has step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E > Has (T accessor, TraversalPredicate predicate)
+        public GraphTraversal< S , E > Has (string propertyKey, object value)
         {
-            var args = new List<object> { accessor, predicate };
+            var args = new List<object> { propertyKey, value };
             Bytecode.AddStep("has", args);
             return Wrap< S , E >(this);
         }
@@ -745,9 +715,19 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the has step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E > Has (string propertyKey, object value)
+        public GraphTraversal< S , E > Has (T accessor, TraversalPredicate predicate)
         {
-            var args = new List<object> { propertyKey, value };
+            var args = new List<object> { accessor, predicate };
+            Bytecode.AddStep("has", args);
+            return Wrap< S , E >(this);
+        }
+
+        /// <summary>
+        ///     Adds the has step to this <see cref="GraphTraversal{SType, EType}" />.
+        /// </summary>
+        public GraphTraversal< S , E > Has (string propertyKey, TraversalPredicate predicate)
+        {
+            var args = new List<object> { propertyKey, predicate };
             Bytecode.AddStep("has", args);
             return Wrap< S , E >(this);
         }
@@ -773,12 +753,22 @@ namespace Gremlin.Net.Process.Traversal
         }
 
         /// <summary>
-        ///     Adds the hasId step to this <see cref="GraphTraversal{SType, EType}" />.
+        ///     Adds the has step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E > HasId (TraversalPredicate predicate)
+        public GraphTraversal< S , E > Has (string label, string propertyKey, object value)
         {
-            var args = new List<object> { predicate };
-            Bytecode.AddStep("hasId", args);
+            var args = new List<object> { label, propertyKey, value };
+            Bytecode.AddStep("has", args);
+            return Wrap< S , E >(this);
+        }
+
+        /// <summary>
+        ///     Adds the has step to this <see cref="GraphTraversal{SType, EType}" />.
+        /// </summary>
+        public GraphTraversal< S , E > Has (string propertyKey, ITraversal propertyTraversal)
+        {
+            var args = new List<object> { propertyKey, propertyTraversal };
+            Bytecode.AddStep("has", args);
             return Wrap< S , E >(this);
         }
 
@@ -788,6 +778,16 @@ namespace Gremlin.Net.Process.Traversal
         public GraphTraversal< S , E > HasId (object id, params object[] otherIds)
         {
             var args = new List<object> { id, otherIds };
+            Bytecode.AddStep("hasId", args);
+            return Wrap< S , E >(this);
+        }
+
+        /// <summary>
+        ///     Adds the hasId step to this <see cref="GraphTraversal{SType, EType}" />.
+        /// </summary>
+        public GraphTraversal< S , E > HasId (TraversalPredicate predicate)
+        {
+            var args = new List<object> { predicate };
             Bytecode.AddStep("hasId", args);
             return Wrap< S , E >(this);
         }
@@ -815,9 +815,9 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the hasLabel step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E > HasLabel (TraversalPredicate predicate)
+        public GraphTraversal< S , E > HasLabel (string label, params string[] otherLabels)
         {
-            var args = new List<object> { predicate };
+            var args = new List<object> { label, otherLabels };
             Bytecode.AddStep("hasLabel", args);
             return Wrap< S , E >(this);
         }
@@ -825,9 +825,9 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the hasLabel step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E > HasLabel (string label, params string[] otherLabels)
+        public GraphTraversal< S , E > HasLabel (TraversalPredicate predicate)
         {
-            var args = new List<object> { label, otherLabels };
+            var args = new List<object> { predicate };
             Bytecode.AddStep("hasLabel", args);
             return Wrap< S , E >(this);
         }
@@ -1005,9 +1005,9 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the map step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E2 > Map<E2> (object function)
+        public GraphTraversal< S , E2 > Map<E2> (ITraversal mapTraversal)
         {
-            var args = new List<object> { function };
+            var args = new List<object> { mapTraversal };
             Bytecode.AddStep("map", args);
             return Wrap< S , E2 >(this);
         }
@@ -1015,9 +1015,9 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the map step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E2 > Map<E2> (ITraversal mapTraversal)
+        public GraphTraversal< S , E2 > Map<E2> (object function)
         {
-            var args = new List<object> { mapTraversal };
+            var args = new List<object> { function };
             Bytecode.AddStep("map", args);
             return Wrap< S , E2 >(this);
         }
@@ -1095,9 +1095,9 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the min step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E2 > Min<E2> ()
+        public GraphTraversal< S , E2 > Min<E2> (Scope scope)
         {
-            var args = new List<object> {  };
+            var args = new List<object> { scope };
             Bytecode.AddStep("min", args);
             return Wrap< S , E2 >(this);
         }
@@ -1105,9 +1105,9 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the min step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E2 > Min<E2> (Scope scope)
+        public GraphTraversal< S , E2 > Min<E2> ()
         {
-            var args = new List<object> { scope };
+            var args = new List<object> {  };
             Bytecode.AddStep("min", args);
             return Wrap< S , E2 >(this);
         }
@@ -1165,9 +1165,9 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the order step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E > Order ()
+        public GraphTraversal< S , E > Order (Scope scope)
         {
-            var args = new List<object> {  };
+            var args = new List<object> { scope };
             Bytecode.AddStep("order", args);
             return Wrap< S , E >(this);
         }
@@ -1175,9 +1175,9 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the order step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E > Order (Scope scope)
+        public GraphTraversal< S , E > Order ()
         {
-            var args = new List<object> { scope };
+            var args = new List<object> {  };
             Bytecode.AddStep("order", args);
             return Wrap< S , E >(this);
         }
@@ -1315,9 +1315,9 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the property step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E > Property (object key, object value, params object[] keyValues)
+        public GraphTraversal< S , E > Property (Cardinality cardinality, object key, object value, params object[] keyValues)
         {
-            var args = new List<object> { key, value, keyValues };
+            var args = new List<object> { cardinality, key, value, keyValues };
             Bytecode.AddStep("property", args);
             return Wrap< S , E >(this);
         }
@@ -1325,9 +1325,9 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the property step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E > Property (Cardinality cardinality, object key, object value, params object[] keyValues)
+        public GraphTraversal< S , E > Property (object key, object value, params object[] keyValues)
         {
-            var args = new List<object> { cardinality, key, value, keyValues };
+            var args = new List<object> { key, value, keyValues };
             Bytecode.AddStep("property", args);
             return Wrap< S , E >(this);
         }
@@ -1375,6 +1375,16 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the sack step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
+        public GraphTraversal< S , E > Sack (object sackOperator, string elementPropertyKey)
+        {
+            var args = new List<object> { sackOperator, elementPropertyKey };
+            Bytecode.AddStep("sack", args);
+            return Wrap< S , E >(this);
+        }
+
+        /// <summary>
+        ///     Adds the sack step to this <see cref="GraphTraversal{SType, EType}" />.
+        /// </summary>
         public GraphTraversal< S , E2 > Sack<E2> ()
         {
             var args = new List<object> {  };
@@ -1393,12 +1403,12 @@ namespace Gremlin.Net.Process.Traversal
         }
 
         /// <summary>
-        ///     Adds the sack step to this <see cref="GraphTraversal{SType, EType}" />.
+        ///     Adds the sample step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E > Sack (object sackOperator, string elementPropertyKey)
+        public GraphTraversal< S , E > Sample (Scope scope, int amountToSample)
         {
-            var args = new List<object> { sackOperator, elementPropertyKey };
-            Bytecode.AddStep("sack", args);
+            var args = new List<object> { scope, amountToSample };
+            Bytecode.AddStep("sample", args);
             return Wrap< S , E >(this);
         }
 
@@ -1410,26 +1420,6 @@ namespace Gremlin.Net.Process.Traversal
             var args = new List<object> { amountToSample };
             Bytecode.AddStep("sample", args);
             return Wrap< S , E >(this);
-        }
-
-        /// <summary>
-        ///     Adds the sample step to this <see cref="GraphTraversal{SType, EType}" />.
-        /// </summary>
-        public GraphTraversal< S , E > Sample (Scope scope, int amountToSample)
-        {
-            var args = new List<object> { scope, amountToSample };
-            Bytecode.AddStep("sample", args);
-            return Wrap< S , E >(this);
-        }
-
-        /// <summary>
-        ///     Adds the select step to this <see cref="GraphTraversal{SType, EType}" />.
-        /// </summary>
-        public GraphTraversal< S , IDictionary<string, E2> > Select<E2> (string selectKey1, string selectKey2, params string[] otherSelectKeys)
-        {
-            var args = new List<object> { selectKey1, selectKey2, otherSelectKeys };
-            Bytecode.AddStep("select", args);
-            return Wrap< S , IDictionary<string, E2> >(this);
         }
 
         /// <summary>
@@ -1445,11 +1435,21 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the select step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , ICollection<E2> > Select<E2> (Column column)
+        public GraphTraversal< S , IDictionary<string, E2> > Select<E2> (string selectKey1, string selectKey2, params string[] otherSelectKeys)
         {
-            var args = new List<object> { column };
+            var args = new List<object> { selectKey1, selectKey2, otherSelectKeys };
             Bytecode.AddStep("select", args);
-            return Wrap< S , ICollection<E2> >(this);
+            return Wrap< S , IDictionary<string, E2> >(this);
+        }
+
+        /// <summary>
+        ///     Adds the select step to this <see cref="GraphTraversal{SType, EType}" />.
+        /// </summary>
+        public GraphTraversal< S , E2 > Select<E2> (Pop pop, string selectKey)
+        {
+            var args = new List<object> { pop, selectKey };
+            Bytecode.AddStep("select", args);
+            return Wrap< S , E2 >(this);
         }
 
         /// <summary>
@@ -1465,21 +1465,11 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the select step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E2 > Select<E2> (Pop pop, string selectKey)
+        public GraphTraversal< S , ICollection<E2> > Select<E2> (Column column)
         {
-            var args = new List<object> { pop, selectKey };
+            var args = new List<object> { column };
             Bytecode.AddStep("select", args);
-            return Wrap< S , E2 >(this);
-        }
-
-        /// <summary>
-        ///     Adds the sideEffect step to this <see cref="GraphTraversal{SType, EType}" />.
-        /// </summary>
-        public GraphTraversal< S , E > SideEffect (ITraversal sideEffectTraversal)
-        {
-            var args = new List<object> { sideEffectTraversal };
-            Bytecode.AddStep("sideEffect", args);
-            return Wrap< S , E >(this);
+            return Wrap< S , ICollection<E2> >(this);
         }
 
         /// <summary>
@@ -1488,6 +1478,16 @@ namespace Gremlin.Net.Process.Traversal
         public GraphTraversal< S , E > SideEffect (object consumer)
         {
             var args = new List<object> { consumer };
+            Bytecode.AddStep("sideEffect", args);
+            return Wrap< S , E >(this);
+        }
+
+        /// <summary>
+        ///     Adds the sideEffect step to this <see cref="GraphTraversal{SType, EType}" />.
+        /// </summary>
+        public GraphTraversal< S , E > SideEffect (ITraversal sideEffectTraversal)
+        {
+            var args = new List<object> { sideEffectTraversal };
             Bytecode.AddStep("sideEffect", args);
             return Wrap< S , E >(this);
         }
@@ -1555,11 +1555,11 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the tail step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E2 > Tail<E2> (Scope scope)
+        public GraphTraversal< S , E > Tail ()
         {
-            var args = new List<object> { scope };
+            var args = new List<object> {  };
             Bytecode.AddStep("tail", args);
-            return Wrap< S , E2 >(this);
+            return Wrap< S , E >(this);
         }
 
         /// <summary>
@@ -1575,11 +1575,11 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the tail step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E > Tail ()
+        public GraphTraversal< S , E2 > Tail<E2> (Scope scope)
         {
-            var args = new List<object> {  };
+            var args = new List<object> { scope };
             Bytecode.AddStep("tail", args);
-            return Wrap< S , E >(this);
+            return Wrap< S , E2 >(this);
         }
 
         /// <summary>
@@ -1615,9 +1615,9 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the to step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E > To (ITraversal toVertex)
+        public GraphTraversal< S , E > To (string toStepLabel)
         {
-            var args = new List<object> { toVertex };
+            var args = new List<object> { toStepLabel };
             Bytecode.AddStep("to", args);
             return Wrap< S , E >(this);
         }
@@ -1625,9 +1625,9 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the to step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E > To (string toStepLabel)
+        public GraphTraversal< S , E > To (ITraversal toVertex)
         {
-            var args = new List<object> { toStepLabel };
+            var args = new List<object> { toVertex };
             Bytecode.AddStep("to", args);
             return Wrap< S , E >(this);
         }
@@ -1655,21 +1655,21 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the tree step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E2 > Tree<E2> ()
-        {
-            var args = new List<object> {  };
-            Bytecode.AddStep("tree", args);
-            return Wrap< S , E2 >(this);
-        }
-
-        /// <summary>
-        ///     Adds the tree step to this <see cref="GraphTraversal{SType, EType}" />.
-        /// </summary>
         public GraphTraversal< S , E > Tree (string sideEffectKey)
         {
             var args = new List<object> { sideEffectKey };
             Bytecode.AddStep("tree", args);
             return Wrap< S , E >(this);
+        }
+
+        /// <summary>
+        ///     Adds the tree step to this <see cref="GraphTraversal{SType, EType}" />.
+        /// </summary>
+        public GraphTraversal< S , E2 > Tree<E2> ()
+        {
+            var args = new List<object> {  };
+            Bytecode.AddStep("tree", args);
+            return Wrap< S , E2 >(this);
         }
 
         /// <summary>
@@ -1695,9 +1695,9 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the until step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E > Until (ITraversal untilTraversal)
+        public GraphTraversal< S , E > Until (TraversalPredicate untilPredicate)
         {
-            var args = new List<object> { untilTraversal };
+            var args = new List<object> { untilPredicate };
             Bytecode.AddStep("until", args);
             return Wrap< S , E >(this);
         }
@@ -1705,9 +1705,9 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the until step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
-        public GraphTraversal< S , E > Until (TraversalPredicate untilPredicate)
+        public GraphTraversal< S , E > Until (ITraversal untilTraversal)
         {
-            var args = new List<object> { untilPredicate };
+            var args = new List<object> { untilTraversal };
             Bytecode.AddStep("until", args);
             return Wrap< S , E >(this);
         }
@@ -1755,6 +1755,16 @@ namespace Gremlin.Net.Process.Traversal
         /// <summary>
         ///     Adds the where step to this <see cref="GraphTraversal{SType, EType}" />.
         /// </summary>
+        public GraphTraversal< S , E > Where (ITraversal whereTraversal)
+        {
+            var args = new List<object> { whereTraversal };
+            Bytecode.AddStep("where", args);
+            return Wrap< S , E >(this);
+        }
+
+        /// <summary>
+        ///     Adds the where step to this <see cref="GraphTraversal{SType, EType}" />.
+        /// </summary>
         public GraphTraversal< S , E > Where (TraversalPredicate predicate)
         {
             var args = new List<object> { predicate };
@@ -1768,16 +1778,6 @@ namespace Gremlin.Net.Process.Traversal
         public GraphTraversal< S , E > Where (string startKey, TraversalPredicate predicate)
         {
             var args = new List<object> { startKey, predicate };
-            Bytecode.AddStep("where", args);
-            return Wrap< S , E >(this);
-        }
-
-        /// <summary>
-        ///     Adds the where step to this <see cref="GraphTraversal{SType, EType}" />.
-        /// </summary>
-        public GraphTraversal< S , E > Where (ITraversal whereTraversal)
-        {
-            var args = new List<object> { whereTraversal };
             Bytecode.AddStep("where", args);
             return Wrap< S , E >(this);
         }
