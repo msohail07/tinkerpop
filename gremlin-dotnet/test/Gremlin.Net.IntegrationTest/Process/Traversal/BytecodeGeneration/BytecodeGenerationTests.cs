@@ -49,7 +49,7 @@ namespace Gremlin.Net.IntegrationTest.Process.Traversal.BytecodeGeneration
         {
             var g = new Graph().Traversal();
 
-            var bytecode = g.WithSack(1).E().GroupCount().By("weight").Bytecode;
+            var bytecode = g.WithSack(1).E().GroupCount<double>().By("weight").Bytecode;
 
             Assert.Equal(1, bytecode.SourceInstructions.Count);
             Assert.Equal("withSack", bytecode.SourceInstructions[0].OperatorName);
