@@ -76,7 +76,15 @@ namespace Gremlin.Net.Process.Traversal
         {
             var source = new GraphTraversalSource(new List<ITraversalStrategy>(TraversalStrategies),
                                                   new Bytecode(Bytecode));
-            source.Bytecode.AddSource("<%= method.methodName %>"<% if (method.parameters) out.print ', '+ method.paramNames %>);
+            <%  if (method.parameters.contains("params ")) {
+          %>var args = new List<object> {<%= method.paramNames.init().join(", ") %>};
+            args.AddRange(<%= method.paramNames.last() %>);
+            source.Bytecode.AddSource("<%= method.methodName %>", args.ToArray());<%
+            }
+            else {
+          %>source.Bytecode.AddSource("<%= method.methodName %>"<% if (method.parameters) out << ', '+ method.paramNames.join(", ") %>);<%
+            }
+        %>
             return source;
         }
 <% } %>
@@ -122,7 +130,15 @@ namespace Gremlin.Net.Process.Traversal
         public GraphTraversal< <%= method.typeArguments.join(",") %> > <%= toCSharpMethodName.call(method.methodName) %>(<%= method.parameters %>)
         {
             var traversal = new GraphTraversal< <%= method.typeArguments.join(",") %> >(TraversalStrategies, new Bytecode(Bytecode));
-            traversal.Bytecode.AddStep("<%= method.methodName %>"<% if (method.parameters) out.print ', '+ method.paramNames %>);
+            <%  if (method.parameters.contains("params ")) {
+          %>var args = new List<object> {<%= method.paramNames.init().join(", ") %>};
+            args.AddRange(<%= method.paramNames.last() %>);
+            traversal.Bytecode.AddStep("<%= method.methodName %>", args.ToArray());<%
+            }
+            else {
+      %>    traversal.Bytecode.AddStep("<%= method.methodName %>"<% if (method.parameters) out << ', '+ method.paramNames.join(", ") %>);<%
+            }
+        %>
             return traversal;
         }
 <% } %>

@@ -45,7 +45,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, Vertex> V(params object[] vertexIdsOrElements)
         {
-            return new GraphTraversal<object, Vertex>().V(vertexIdsOrElements);
+            return vertexIdsOrElements.Length == 0
+                ? new GraphTraversal<object, Vertex>().V()
+                : new GraphTraversal<object, Vertex>().V(vertexIdsOrElements);            
         }
 
         /// <summary>
@@ -53,7 +55,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, Edge> AddE(Direction direction, string firstVertexKeyOrEdgeLabel, string edgeLabelOrSecondVertexKey, params object[] propertyKeyValues)
         {
-            return new GraphTraversal<object, Edge>().AddE(direction, firstVertexKeyOrEdgeLabel, edgeLabelOrSecondVertexKey, propertyKeyValues);
+            return propertyKeyValues.Length == 0
+                ? new GraphTraversal<object, Edge>().AddE(direction, firstVertexKeyOrEdgeLabel, edgeLabelOrSecondVertexKey)
+                : new GraphTraversal<object, Edge>().AddE(direction, firstVertexKeyOrEdgeLabel, edgeLabelOrSecondVertexKey, propertyKeyValues);            
         }
 
         /// <summary>
@@ -61,7 +65,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, Edge> AddE(string edgeLabel)
         {
-            return new GraphTraversal<object, Edge>().AddE(edgeLabel);
+            return new GraphTraversal<object, Edge>().AddE(edgeLabel);            
         }
 
         /// <summary>
@@ -69,7 +73,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, Edge> AddInE(string firstVertexKeyOrEdgeLabel, string edgeLabelOrSecondVertexKey, params object[] propertyKeyValues)
         {
-            return new GraphTraversal<object, Edge>().AddInE(firstVertexKeyOrEdgeLabel, edgeLabelOrSecondVertexKey, propertyKeyValues);
+            return propertyKeyValues.Length == 0
+                ? new GraphTraversal<object, Edge>().AddInE(firstVertexKeyOrEdgeLabel, edgeLabelOrSecondVertexKey)
+                : new GraphTraversal<object, Edge>().AddInE(firstVertexKeyOrEdgeLabel, edgeLabelOrSecondVertexKey, propertyKeyValues);            
         }
 
         /// <summary>
@@ -77,7 +83,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, Edge> AddOutE(string firstVertexKeyOrEdgeLabel, string edgeLabelOrSecondVertexKey, params object[] propertyKeyValues)
         {
-            return new GraphTraversal<object, Edge>().AddOutE(firstVertexKeyOrEdgeLabel, edgeLabelOrSecondVertexKey, propertyKeyValues);
+            return propertyKeyValues.Length == 0
+                ? new GraphTraversal<object, Edge>().AddOutE(firstVertexKeyOrEdgeLabel, edgeLabelOrSecondVertexKey)
+                : new GraphTraversal<object, Edge>().AddOutE(firstVertexKeyOrEdgeLabel, edgeLabelOrSecondVertexKey, propertyKeyValues);            
         }
 
         /// <summary>
@@ -85,7 +93,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, Vertex> AddV()
         {
-            return new GraphTraversal<object, Vertex>().AddV();
+            return new GraphTraversal<object, Vertex>().AddV();            
         }
 
         /// <summary>
@@ -93,7 +101,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, Vertex> AddV(params object[] propertyKeyValues)
         {
-            return new GraphTraversal<object, Vertex>().AddV(propertyKeyValues);
+            return propertyKeyValues.Length == 0
+                ? new GraphTraversal<object, Vertex>().AddV()
+                : new GraphTraversal<object, Vertex>().AddV(propertyKeyValues);            
         }
 
         /// <summary>
@@ -101,7 +111,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, Vertex> AddV(string vertexLabel)
         {
-            return new GraphTraversal<object, Vertex>().AddV(vertexLabel);
+            return new GraphTraversal<object, Vertex>().AddV(vertexLabel);            
         }
 
         /// <summary>
@@ -109,7 +119,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Aggregate(string sideEffectKey)
         {
-            return new GraphTraversal<object, object>().Aggregate(sideEffectKey);
+            return new GraphTraversal<object, object>().Aggregate(sideEffectKey);            
         }
 
         /// <summary>
@@ -117,7 +127,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> And(params ITraversal[] andTraversals)
         {
-            return new GraphTraversal<object, object>().And(andTraversals);
+            return andTraversals.Length == 0
+                ? new GraphTraversal<object, object>().And()
+                : new GraphTraversal<object, object>().And(andTraversals);            
         }
 
         /// <summary>
@@ -125,7 +137,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> As(string label, params string[] labels)
         {
-            return new GraphTraversal<object, object>().As(label, labels);
+            return labels.Length == 0
+                ? new GraphTraversal<object, object>().As(label)
+                : new GraphTraversal<object, object>().As(label, labels);            
         }
 
         /// <summary>
@@ -133,7 +147,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Barrier()
         {
-            return new GraphTraversal<object, object>().Barrier();
+            return new GraphTraversal<object, object>().Barrier();            
         }
 
         /// <summary>
@@ -141,7 +155,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Barrier(object barrierConsumer)
         {
-            return new GraphTraversal<object, object>().Barrier(barrierConsumer);
+            return new GraphTraversal<object, object>().Barrier(barrierConsumer);            
         }
 
         /// <summary>
@@ -149,7 +163,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Barrier(int maxBarrierSize)
         {
-            return new GraphTraversal<object, object>().Barrier(maxBarrierSize);
+            return new GraphTraversal<object, object>().Barrier(maxBarrierSize);            
         }
 
         /// <summary>
@@ -157,7 +171,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, Vertex> Both(params string[] edgeLabels)
         {
-            return new GraphTraversal<object, Vertex>().Both(edgeLabels);
+            return edgeLabels.Length == 0
+                ? new GraphTraversal<object, Vertex>().Both()
+                : new GraphTraversal<object, Vertex>().Both(edgeLabels);            
         }
 
         /// <summary>
@@ -165,7 +181,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, Edge> BothE(params string[] edgeLabels)
         {
-            return new GraphTraversal<object, Edge>().BothE(edgeLabels);
+            return edgeLabels.Length == 0
+                ? new GraphTraversal<object, Edge>().BothE()
+                : new GraphTraversal<object, Edge>().BothE(edgeLabels);            
         }
 
         /// <summary>
@@ -173,7 +191,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, Vertex> BothV()
         {
-            return new GraphTraversal<object, Vertex>().BothV();
+            return new GraphTraversal<object, Vertex>().BothV();            
         }
 
         /// <summary>
@@ -181,7 +199,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Branch<E2>(object function)
         {
-            return new GraphTraversal<object, E2>().Branch<E2>(function);
+            return new GraphTraversal<object, E2>().Branch<E2>(function);            
         }
 
         /// <summary>
@@ -189,7 +207,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Branch<E2>(ITraversal traversalFunction)
         {
-            return new GraphTraversal<object, E2>().Branch<E2>(traversalFunction);
+            return new GraphTraversal<object, E2>().Branch<E2>(traversalFunction);            
         }
 
         /// <summary>
@@ -197,7 +215,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Cap<E2>(string sideEffectKey, params string[] sideEffectKeys)
         {
-            return new GraphTraversal<object, E2>().Cap<E2>(sideEffectKey, sideEffectKeys);
+            return sideEffectKeys.Length == 0
+                ? new GraphTraversal<object, E2>().Cap<E2>(sideEffectKey)
+                : new GraphTraversal<object, E2>().Cap<E2>(sideEffectKey, sideEffectKeys);            
         }
 
         /// <summary>
@@ -205,7 +225,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Choose<E2>(object choiceFunction)
         {
-            return new GraphTraversal<object, E2>().Choose<E2>(choiceFunction);
+            return new GraphTraversal<object, E2>().Choose<E2>(choiceFunction);            
         }
 
         /// <summary>
@@ -213,7 +233,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Choose<E2>(TraversalPredicate choosePredicate, ITraversal trueChoice)
         {
-            return new GraphTraversal<object, E2>().Choose<E2>(choosePredicate, trueChoice);
+            return new GraphTraversal<object, E2>().Choose<E2>(choosePredicate, trueChoice);            
         }
 
         /// <summary>
@@ -221,7 +241,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Choose<E2>(TraversalPredicate choosePredicate, ITraversal trueChoice, ITraversal falseChoice)
         {
-            return new GraphTraversal<object, E2>().Choose<E2>(choosePredicate, trueChoice, falseChoice);
+            return new GraphTraversal<object, E2>().Choose<E2>(choosePredicate, trueChoice, falseChoice);            
         }
 
         /// <summary>
@@ -229,7 +249,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Choose<E2>(ITraversal traversalFunction)
         {
-            return new GraphTraversal<object, E2>().Choose<E2>(traversalFunction);
+            return new GraphTraversal<object, E2>().Choose<E2>(traversalFunction);            
         }
 
         /// <summary>
@@ -237,7 +257,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Choose<E2>(ITraversal traversalPredicate, ITraversal trueChoice)
         {
-            return new GraphTraversal<object, E2>().Choose<E2>(traversalPredicate, trueChoice);
+            return new GraphTraversal<object, E2>().Choose<E2>(traversalPredicate, trueChoice);            
         }
 
         /// <summary>
@@ -245,7 +265,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Choose<E2>(ITraversal traversalPredicate, ITraversal trueChoice, ITraversal falseChoice)
         {
-            return new GraphTraversal<object, E2>().Choose<E2>(traversalPredicate, trueChoice, falseChoice);
+            return new GraphTraversal<object, E2>().Choose<E2>(traversalPredicate, trueChoice, falseChoice);            
         }
 
         /// <summary>
@@ -253,7 +273,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Coalesce<E2>(params ITraversal[] traversals)
         {
-            return new GraphTraversal<object, E2>().Coalesce<E2>(traversals);
+            return traversals.Length == 0
+                ? new GraphTraversal<object, E2>().Coalesce<E2>()
+                : new GraphTraversal<object, E2>().Coalesce<E2>(traversals);            
         }
 
         /// <summary>
@@ -261,7 +283,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Coin(double probability)
         {
-            return new GraphTraversal<object, object>().Coin(probability);
+            return new GraphTraversal<object, object>().Coin(probability);            
         }
 
         /// <summary>
@@ -269,7 +291,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Constant<E2>(object a)
         {
-            return new GraphTraversal<object, E2>().Constant<E2>(a);
+            return new GraphTraversal<object, E2>().Constant<E2>(a);            
         }
 
         /// <summary>
@@ -277,7 +299,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, long> Count()
         {
-            return new GraphTraversal<object, long>().Count();
+            return new GraphTraversal<object, long>().Count();            
         }
 
         /// <summary>
@@ -285,7 +307,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, long> Count(Scope scope)
         {
-            return new GraphTraversal<object, long>().Count(scope);
+            return new GraphTraversal<object, long>().Count(scope);            
         }
 
         /// <summary>
@@ -293,7 +315,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> CyclicPath()
         {
-            return new GraphTraversal<object, object>().CyclicPath();
+            return new GraphTraversal<object, object>().CyclicPath();            
         }
 
         /// <summary>
@@ -301,7 +323,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Dedup(Scope scope, params string[] dedupLabels)
         {
-            return new GraphTraversal<object, object>().Dedup(scope, dedupLabels);
+            return dedupLabels.Length == 0
+                ? new GraphTraversal<object, object>().Dedup(scope)
+                : new GraphTraversal<object, object>().Dedup(scope, dedupLabels);            
         }
 
         /// <summary>
@@ -309,7 +333,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Dedup(params string[] dedupLabels)
         {
-            return new GraphTraversal<object, object>().Dedup(dedupLabels);
+            return dedupLabels.Length == 0
+                ? new GraphTraversal<object, object>().Dedup()
+                : new GraphTraversal<object, object>().Dedup(dedupLabels);            
         }
 
         /// <summary>
@@ -317,7 +343,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Drop()
         {
-            return new GraphTraversal<object, object>().Drop();
+            return new GraphTraversal<object, object>().Drop();            
         }
 
         /// <summary>
@@ -325,7 +351,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Emit()
         {
-            return new GraphTraversal<object, object>().Emit();
+            return new GraphTraversal<object, object>().Emit();            
         }
 
         /// <summary>
@@ -333,7 +359,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Emit(TraversalPredicate emitPredicate)
         {
-            return new GraphTraversal<object, object>().Emit(emitPredicate);
+            return new GraphTraversal<object, object>().Emit(emitPredicate);            
         }
 
         /// <summary>
@@ -341,7 +367,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Emit(ITraversal emitTraversal)
         {
-            return new GraphTraversal<object, object>().Emit(emitTraversal);
+            return new GraphTraversal<object, object>().Emit(emitTraversal);            
         }
 
         /// <summary>
@@ -349,7 +375,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Filter(TraversalPredicate predicate)
         {
-            return new GraphTraversal<object, object>().Filter(predicate);
+            return new GraphTraversal<object, object>().Filter(predicate);            
         }
 
         /// <summary>
@@ -357,7 +383,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Filter(ITraversal filterTraversal)
         {
-            return new GraphTraversal<object, object>().Filter(filterTraversal);
+            return new GraphTraversal<object, object>().Filter(filterTraversal);            
         }
 
         /// <summary>
@@ -365,7 +391,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> FlatMap<E2>(object function)
         {
-            return new GraphTraversal<object, E2>().FlatMap<E2>(function);
+            return new GraphTraversal<object, E2>().FlatMap<E2>(function);            
         }
 
         /// <summary>
@@ -373,7 +399,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> FlatMap<E2>(ITraversal flatMapTraversal)
         {
-            return new GraphTraversal<object, E2>().FlatMap<E2>(flatMapTraversal);
+            return new GraphTraversal<object, E2>().FlatMap<E2>(flatMapTraversal);            
         }
 
         /// <summary>
@@ -381,7 +407,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, IList<E2>> Fold<E2>()
         {
-            return new GraphTraversal<object, E2>().Fold();
+            return new GraphTraversal<object, E2>().Fold();            
         }
 
         /// <summary>
@@ -389,7 +415,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Fold<E2>(object seed, object foldFunction)
         {
-            return new GraphTraversal<object, E2>().Fold<E2>(seed, foldFunction);
+            return new GraphTraversal<object, E2>().Fold<E2>(seed, foldFunction);            
         }
 
         /// <summary>
@@ -397,7 +423,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, IDictionary<K, V>> Group<K, V>()
         {
-            return new GraphTraversal<object, IDictionary<K, V>>().Group<K, V>();
+            return new GraphTraversal<object, IDictionary<K, V>>().Group<K, V>();            
         }
 
         /// <summary>
@@ -405,7 +431,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Group(string sideEffectKey)
         {
-            return new GraphTraversal<object, object>().Group(sideEffectKey);
+            return new GraphTraversal<object, object>().Group(sideEffectKey);            
         }
 
         /// <summary>
@@ -413,7 +439,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, IDictionary<K, long>> GroupCount<K>()
         {
-            return new GraphTraversal<object, IDictionary<K, long>>().GroupCount<K>();
+            return new GraphTraversal<object, IDictionary<K, long>>().GroupCount<K>();            
         }
 
         /// <summary>
@@ -421,7 +447,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> GroupCount(string sideEffectKey)
         {
-            return new GraphTraversal<object, object>().GroupCount(sideEffectKey);
+            return new GraphTraversal<object, object>().GroupCount(sideEffectKey);            
         }
 
         /// <summary>
@@ -429,7 +455,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, IDictionary<K, V>> GroupV3d0<K, V>()
         {
-            return new GraphTraversal<object, IDictionary<K, V>>().GroupV3d0<K, V>();
+            return new GraphTraversal<object, IDictionary<K, V>>().GroupV3d0<K, V>();            
         }
 
         /// <summary>
@@ -437,7 +463,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> GroupV3d0(string sideEffectKey)
         {
-            return new GraphTraversal<object, object>().GroupV3d0(sideEffectKey);
+            return new GraphTraversal<object, object>().GroupV3d0(sideEffectKey);            
         }
 
         /// <summary>
@@ -445,7 +471,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Has(string propertyKey)
         {
-            return new GraphTraversal<object, object>().Has(propertyKey);
+            return new GraphTraversal<object, object>().Has(propertyKey);            
         }
 
         /// <summary>
@@ -453,7 +479,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Has(string propertyKey, object value)
         {
-            return new GraphTraversal<object, object>().Has(propertyKey, value);
+            return new GraphTraversal<object, object>().Has(propertyKey, value);            
         }
 
         /// <summary>
@@ -461,7 +487,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Has(string propertyKey, TraversalPredicate predicate)
         {
-            return new GraphTraversal<object, object>().Has(propertyKey, predicate);
+            return new GraphTraversal<object, object>().Has(propertyKey, predicate);            
         }
 
         /// <summary>
@@ -469,7 +495,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Has(string label, string propertyKey, object value)
         {
-            return new GraphTraversal<object, object>().Has(label, propertyKey, value);
+            return new GraphTraversal<object, object>().Has(label, propertyKey, value);            
         }
 
         /// <summary>
@@ -477,7 +503,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Has(string label, string propertyKey, TraversalPredicate predicate)
         {
-            return new GraphTraversal<object, object>().Has(label, propertyKey, predicate);
+            return new GraphTraversal<object, object>().Has(label, propertyKey, predicate);            
         }
 
         /// <summary>
@@ -485,7 +511,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Has(string propertyKey, ITraversal propertyTraversal)
         {
-            return new GraphTraversal<object, object>().Has(propertyKey, propertyTraversal);
+            return new GraphTraversal<object, object>().Has(propertyKey, propertyTraversal);            
         }
 
         /// <summary>
@@ -493,7 +519,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Has(T accessor, object value)
         {
-            return new GraphTraversal<object, object>().Has(accessor, value);
+            return new GraphTraversal<object, object>().Has(accessor, value);            
         }
 
         /// <summary>
@@ -501,7 +527,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Has(T accessor, TraversalPredicate predicate)
         {
-            return new GraphTraversal<object, object>().Has(accessor, predicate);
+            return new GraphTraversal<object, object>().Has(accessor, predicate);            
         }
 
         /// <summary>
@@ -509,7 +535,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Has(T accessor, ITraversal propertyTraversal)
         {
-            return new GraphTraversal<object, object>().Has(accessor, propertyTraversal);
+            return new GraphTraversal<object, object>().Has(accessor, propertyTraversal);            
         }
 
         /// <summary>
@@ -517,7 +543,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> HasId(object id, params object[] otherIds)
         {
-            return new GraphTraversal<object, object>().HasId(id, otherIds);
+            return otherIds.Length == 0
+                ? new GraphTraversal<object, object>().HasId(id)
+                : new GraphTraversal<object, object>().HasId(id, otherIds);            
         }
 
         /// <summary>
@@ -525,7 +553,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> HasId(TraversalPredicate predicate)
         {
-            return new GraphTraversal<object, object>().HasId(predicate);
+            return new GraphTraversal<object, object>().HasId(predicate);            
         }
 
         /// <summary>
@@ -533,7 +561,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> HasKey(TraversalPredicate predicate)
         {
-            return new GraphTraversal<object, object>().HasKey(predicate);
+            return new GraphTraversal<object, object>().HasKey(predicate);            
         }
 
         /// <summary>
@@ -541,7 +569,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> HasKey(string label, params string[] otherLabels)
         {
-            return new GraphTraversal<object, object>().HasKey(label, otherLabels);
+            return otherLabels.Length == 0
+                ? new GraphTraversal<object, object>().HasKey(label)
+                : new GraphTraversal<object, object>().HasKey(label, otherLabels);            
         }
 
         /// <summary>
@@ -549,7 +579,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> HasLabel(TraversalPredicate predicate)
         {
-            return new GraphTraversal<object, object>().HasLabel(predicate);
+            return new GraphTraversal<object, object>().HasLabel(predicate);            
         }
 
         /// <summary>
@@ -557,7 +587,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> HasLabel(string label, params string[] otherLabels)
         {
-            return new GraphTraversal<object, object>().HasLabel(label, otherLabels);
+            return otherLabels.Length == 0
+                ? new GraphTraversal<object, object>().HasLabel(label)
+                : new GraphTraversal<object, object>().HasLabel(label, otherLabels);            
         }
 
         /// <summary>
@@ -565,7 +597,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> HasNot(string propertyKey)
         {
-            return new GraphTraversal<object, object>().HasNot(propertyKey);
+            return new GraphTraversal<object, object>().HasNot(propertyKey);            
         }
 
         /// <summary>
@@ -573,7 +605,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> HasValue(object value, params object[] values)
         {
-            return new GraphTraversal<object, object>().HasValue(value, values);
+            return values.Length == 0
+                ? new GraphTraversal<object, object>().HasValue(value)
+                : new GraphTraversal<object, object>().HasValue(value, values);            
         }
 
         /// <summary>
@@ -581,7 +615,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> HasValue(TraversalPredicate predicate)
         {
-            return new GraphTraversal<object, object>().HasValue(predicate);
+            return new GraphTraversal<object, object>().HasValue(predicate);            
         }
 
         /// <summary>
@@ -589,7 +623,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Id()
         {
-            return new GraphTraversal<object, object>().Id();
+            return new GraphTraversal<object, object>().Id();            
         }
 
         /// <summary>
@@ -597,7 +631,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Identity()
         {
-            return new GraphTraversal<object, object>().Identity();
+            return new GraphTraversal<object, object>().Identity();            
         }
 
         /// <summary>
@@ -605,7 +639,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, Vertex> In(params string[] edgeLabels)
         {
-            return new GraphTraversal<object, Vertex>().In(edgeLabels);
+            return edgeLabels.Length == 0
+                ? new GraphTraversal<object, Vertex>().In()
+                : new GraphTraversal<object, Vertex>().In(edgeLabels);            
         }
 
         /// <summary>
@@ -613,7 +649,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, Edge> InE(params string[] edgeLabels)
         {
-            return new GraphTraversal<object, Edge>().InE(edgeLabels);
+            return edgeLabels.Length == 0
+                ? new GraphTraversal<object, Edge>().InE()
+                : new GraphTraversal<object, Edge>().InE(edgeLabels);            
         }
 
         /// <summary>
@@ -621,7 +659,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, Vertex> InV()
         {
-            return new GraphTraversal<object, Vertex>().InV();
+            return new GraphTraversal<object, Vertex>().InV();            
         }
 
         /// <summary>
@@ -629,7 +667,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Inject(params object[] injections)
         {
-            return new GraphTraversal<object, object>().Inject(injections);
+            return injections.Length == 0
+                ? new GraphTraversal<object, object>().Inject()
+                : new GraphTraversal<object, object>().Inject(injections);            
         }
 
         /// <summary>
@@ -637,7 +677,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Is(object value)
         {
-            return new GraphTraversal<object, object>().Is(value);
+            return new GraphTraversal<object, object>().Is(value);            
         }
 
         /// <summary>
@@ -645,7 +685,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Is(TraversalPredicate predicate)
         {
-            return new GraphTraversal<object, object>().Is(predicate);
+            return new GraphTraversal<object, object>().Is(predicate);            
         }
 
         /// <summary>
@@ -653,7 +693,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, string> Key()
         {
-            return new GraphTraversal<object, string>().Key();
+            return new GraphTraversal<object, string>().Key();            
         }
 
         /// <summary>
@@ -661,7 +701,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, string> Label()
         {
-            return new GraphTraversal<object, string>().Label();
+            return new GraphTraversal<object, string>().Label();            
         }
 
         /// <summary>
@@ -669,7 +709,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Limit<E2>(Scope scope, long limit)
         {
-            return new GraphTraversal<object, E2>().Limit<E2>(scope, limit);
+            return new GraphTraversal<object, E2>().Limit<E2>(scope, limit);            
         }
 
         /// <summary>
@@ -677,7 +717,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Limit<E2>(long limit)
         {
-            return new GraphTraversal<object, E2>().Limit(limit);
+            return new GraphTraversal<object, E2>().Limit(limit);            
         }
 
         /// <summary>
@@ -685,7 +725,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Local<E2>(ITraversal localTraversal)
         {
-            return new GraphTraversal<object, E2>().Local<E2>(localTraversal);
+            return new GraphTraversal<object, E2>().Local<E2>(localTraversal);            
         }
 
         /// <summary>
@@ -693,7 +733,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, int> Loops()
         {
-            return new GraphTraversal<object, int>().Loops();
+            return new GraphTraversal<object, int>().Loops();            
         }
 
         /// <summary>
@@ -701,7 +741,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Map<E2>(object function)
         {
-            return new GraphTraversal<object, E2>().Map<E2>(function);
+            return new GraphTraversal<object, E2>().Map<E2>(function);            
         }
 
         /// <summary>
@@ -709,7 +749,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Map<E2>(ITraversal mapTraversal)
         {
-            return new GraphTraversal<object, E2>().Map<E2>(mapTraversal);
+            return new GraphTraversal<object, E2>().Map<E2>(mapTraversal);            
         }
 
         /// <summary>
@@ -717,7 +757,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> MapKeys<E2>()
         {
-            return new GraphTraversal<object, E2>().MapKeys<E2>();
+            return new GraphTraversal<object, E2>().MapKeys<E2>();            
         }
 
         /// <summary>
@@ -725,7 +765,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> MapValues<E2>()
         {
-            return new GraphTraversal<object, E2>().MapValues<E2>();
+            return new GraphTraversal<object, E2>().MapValues<E2>();            
         }
 
         /// <summary>
@@ -733,7 +773,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, IDictionary<string, E2>> Match<E2>(params ITraversal[] matchTraversals)
         {
-            return new GraphTraversal<object, IDictionary<string, E2>>().Match<E2>(matchTraversals);
+            return matchTraversals.Length == 0
+                ? new GraphTraversal<object, IDictionary<string, E2>>().Match<E2>()
+                : new GraphTraversal<object, IDictionary<string, E2>>().Match<E2>(matchTraversals);            
         }
 
         /// <summary>
@@ -741,7 +783,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Max<E2>()
         {
-            return new GraphTraversal<object, E2>().Max<E2>();
+            return new GraphTraversal<object, E2>().Max<E2>();            
         }
 
         /// <summary>
@@ -749,7 +791,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Max<E2>(Scope scope)
         {
-            return new GraphTraversal<object, E2>().Max<E2>(scope);
+            return new GraphTraversal<object, E2>().Max<E2>(scope);            
         }
 
         /// <summary>
@@ -757,7 +799,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Mean<E2>()
         {
-            return new GraphTraversal<object, E2>().Mean<E2>();
+            return new GraphTraversal<object, E2>().Mean<E2>();            
         }
 
         /// <summary>
@@ -765,7 +807,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Mean<E2>(Scope scope)
         {
-            return new GraphTraversal<object, E2>().Mean<E2>(scope);
+            return new GraphTraversal<object, E2>().Mean<E2>(scope);            
         }
 
         /// <summary>
@@ -773,7 +815,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Min<E2>()
         {
-            return new GraphTraversal<object, E2>().Min<E2>();
+            return new GraphTraversal<object, E2>().Min<E2>();            
         }
 
         /// <summary>
@@ -781,7 +823,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Min<E2>(Scope scope)
         {
-            return new GraphTraversal<object, E2>().Min<E2>(scope);
+            return new GraphTraversal<object, E2>().Min<E2>(scope);            
         }
 
         /// <summary>
@@ -789,7 +831,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Not(ITraversal notTraversal)
         {
-            return new GraphTraversal<object, object>().Not(notTraversal);
+            return new GraphTraversal<object, object>().Not(notTraversal);            
         }
 
         /// <summary>
@@ -797,7 +839,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Optional<E2>(ITraversal optionalTraversal)
         {
-            return new GraphTraversal<object, E2>().Optional<E2>(optionalTraversal);
+            return new GraphTraversal<object, E2>().Optional<E2>(optionalTraversal);            
         }
 
         /// <summary>
@@ -805,7 +847,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Or(params ITraversal[] orTraversals)
         {
-            return new GraphTraversal<object, object>().Or(orTraversals);
+            return orTraversals.Length == 0
+                ? new GraphTraversal<object, object>().Or()
+                : new GraphTraversal<object, object>().Or(orTraversals);            
         }
 
         /// <summary>
@@ -813,7 +857,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Order()
         {
-            return new GraphTraversal<object, object>().Order();
+            return new GraphTraversal<object, object>().Order();            
         }
 
         /// <summary>
@@ -821,7 +865,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Order(Scope scope)
         {
-            return new GraphTraversal<object, object>().Order(scope);
+            return new GraphTraversal<object, object>().Order(scope);            
         }
 
         /// <summary>
@@ -829,7 +873,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, Vertex> OtherV()
         {
-            return new GraphTraversal<object, Vertex>().OtherV();
+            return new GraphTraversal<object, Vertex>().OtherV();            
         }
 
         /// <summary>
@@ -837,7 +881,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, Vertex> Out(params string[] edgeLabels)
         {
-            return new GraphTraversal<object, Vertex>().Out(edgeLabels);
+            return edgeLabels.Length == 0
+                ? new GraphTraversal<object, Vertex>().Out()
+                : new GraphTraversal<object, Vertex>().Out(edgeLabels);            
         }
 
         /// <summary>
@@ -845,7 +891,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, Edge> OutE(params string[] edgeLabels)
         {
-            return new GraphTraversal<object, Edge>().OutE(edgeLabels);
+            return edgeLabels.Length == 0
+                ? new GraphTraversal<object, Edge>().OutE()
+                : new GraphTraversal<object, Edge>().OutE(edgeLabels);            
         }
 
         /// <summary>
@@ -853,7 +901,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, Vertex> OutV()
         {
-            return new GraphTraversal<object, Vertex>().OutV();
+            return new GraphTraversal<object, Vertex>().OutV();            
         }
 
         /// <summary>
@@ -861,7 +909,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, Path> Path()
         {
-            return new GraphTraversal<object, Path>().Path();
+            return new GraphTraversal<object, Path>().Path();            
         }
 
         /// <summary>
@@ -869,7 +917,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, IDictionary<string, E2>> Project<E2>(string projectKey, params string[] projectKeys)
         {
-            return new GraphTraversal<object, IDictionary<string, E2>>().Project<E2>(projectKey, projectKeys);
+            return projectKeys.Length == 0
+                ? new GraphTraversal<object, IDictionary<string, E2>>().Project<E2>(projectKey)
+                : new GraphTraversal<object, IDictionary<string, E2>>().Project<E2>(projectKey, projectKeys);            
         }
 
         /// <summary>
@@ -877,7 +927,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Properties<E2>(params string[] propertyKeys)
         {
-            return new GraphTraversal<object, E2>().Properties<E2>(propertyKeys);
+            return propertyKeys.Length == 0
+                ? new GraphTraversal<object, E2>().Properties<E2>()
+                : new GraphTraversal<object, E2>().Properties<E2>(propertyKeys);            
         }
 
         /// <summary>
@@ -885,7 +937,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Property(Cardinality cardinality, object key, object value, params object[] keyValues)
         {
-            return new GraphTraversal<object, object>().Property(cardinality, key, value, keyValues);
+            return keyValues.Length == 0
+                ? new GraphTraversal<object, object>().Property(cardinality, key, value)
+                : new GraphTraversal<object, object>().Property(cardinality, key, value, keyValues);            
         }
 
         /// <summary>
@@ -893,7 +947,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Property(object key, object value, params object[] keyValues)
         {
-            return new GraphTraversal<object, object>().Property(key, value, keyValues);
+            return keyValues.Length == 0
+                ? new GraphTraversal<object, object>().Property(key, value)
+                : new GraphTraversal<object, object>().Property(key, value, keyValues);            
         }
 
         /// <summary>
@@ -901,7 +957,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, IDictionary<string, E2>> PropertyMap<E2>(params string[] propertyKeys)
         {
-            return new GraphTraversal<object, IDictionary<string, E2>>().PropertyMap<E2>(propertyKeys);
+            return propertyKeys.Length == 0
+                ? new GraphTraversal<object, IDictionary<string, E2>>().PropertyMap<E2>()
+                : new GraphTraversal<object, IDictionary<string, E2>>().PropertyMap<E2>(propertyKeys);            
         }
 
         /// <summary>
@@ -909,7 +967,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Range<E2>(Scope scope, long low, long high)
         {
-            return new GraphTraversal<object, E2>().Range<E2>(scope, low, high);
+            return new GraphTraversal<object, E2>().Range<E2>(scope, low, high);            
         }
 
         /// <summary>
@@ -917,7 +975,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Range<E2>(long low, long high)
         {
-            return new GraphTraversal<object, E2>().Range(low, high);
+            return new GraphTraversal<object, E2>().Range(low, high);            
         }
 
         /// <summary>
@@ -925,7 +983,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Repeat(ITraversal traversal)
         {
-            return new GraphTraversal<object, object>().Repeat(traversal);
+            return new GraphTraversal<object, object>().Repeat(traversal);            
         }
 
         /// <summary>
@@ -933,7 +991,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Sack<E2>()
         {
-            return new GraphTraversal<object, E2>().Sack<E2>();
+            return new GraphTraversal<object, E2>().Sack<E2>();            
         }
 
         /// <summary>
@@ -941,7 +999,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Sack(object sackOperator)
         {
-            return new GraphTraversal<object, object>().Sack(sackOperator);
+            return new GraphTraversal<object, object>().Sack(sackOperator);            
         }
 
         /// <summary>
@@ -949,7 +1007,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Sack(object sackOperator, string elementPropertyKey)
         {
-            return new GraphTraversal<object, object>().Sack(sackOperator, elementPropertyKey);
+            return new GraphTraversal<object, object>().Sack(sackOperator, elementPropertyKey);            
         }
 
         /// <summary>
@@ -957,7 +1015,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Sample(Scope scope, int amountToSample)
         {
-            return new GraphTraversal<object, object>().Sample(scope, amountToSample);
+            return new GraphTraversal<object, object>().Sample(scope, amountToSample);            
         }
 
         /// <summary>
@@ -965,7 +1023,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Sample(int amountToSample)
         {
-            return new GraphTraversal<object, object>().Sample(amountToSample);
+            return new GraphTraversal<object, object>().Sample(amountToSample);            
         }
 
         /// <summary>
@@ -973,7 +1031,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, ICollection<E2>> Select<E2>(Column column)
         {
-            return new GraphTraversal<object, ICollection<E2>>().Select<E2>(column);
+            return new GraphTraversal<object, ICollection<E2>>().Select<E2>(column);            
         }
 
         /// <summary>
@@ -981,7 +1039,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Select<E2>(Pop pop, string selectKey)
         {
-            return new GraphTraversal<object, E2>().Select<E2>(pop, selectKey);
+            return new GraphTraversal<object, E2>().Select<E2>(pop, selectKey);            
         }
 
         /// <summary>
@@ -989,7 +1047,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, IDictionary<string, E2>> Select<E2>(Pop pop, string selectKey1, string selectKey2, params string[] otherSelectKeys)
         {
-            return new GraphTraversal<object, IDictionary<string, E2>>().Select<E2>(pop, selectKey1, selectKey2, otherSelectKeys);
+            return otherSelectKeys.Length == 0
+                ? new GraphTraversal<object, IDictionary<string, E2>>().Select<E2>(pop, selectKey1, selectKey2)
+                : new GraphTraversal<object, IDictionary<string, E2>>().Select<E2>(pop, selectKey1, selectKey2, otherSelectKeys);            
         }
 
         /// <summary>
@@ -997,7 +1057,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Select<E2>(string selectKey)
         {
-            return new GraphTraversal<object, E2>().Select<E2>(selectKey);
+            return new GraphTraversal<object, E2>().Select<E2>(selectKey);            
         }
 
         /// <summary>
@@ -1005,7 +1065,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, IDictionary<string, E2>> Select<E2>(string selectKey1, string selectKey2, params string[] otherSelectKeys)
         {
-            return new GraphTraversal<object, IDictionary<string, E2>>().Select<E2>(selectKey1, selectKey2, otherSelectKeys);
+            return otherSelectKeys.Length == 0
+                ? new GraphTraversal<object, IDictionary<string, E2>>().Select<E2>(selectKey1, selectKey2)
+                : new GraphTraversal<object, IDictionary<string, E2>>().Select<E2>(selectKey1, selectKey2, otherSelectKeys);            
         }
 
         /// <summary>
@@ -1013,7 +1075,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> SideEffect(object consumer)
         {
-            return new GraphTraversal<object, object>().SideEffect(consumer);
+            return new GraphTraversal<object, object>().SideEffect(consumer);            
         }
 
         /// <summary>
@@ -1021,7 +1083,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> SideEffect(ITraversal sideEffectTraversal)
         {
-            return new GraphTraversal<object, object>().SideEffect(sideEffectTraversal);
+            return new GraphTraversal<object, object>().SideEffect(sideEffectTraversal);            
         }
 
         /// <summary>
@@ -1029,7 +1091,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> SimplePath()
         {
-            return new GraphTraversal<object, object>().SimplePath();
+            return new GraphTraversal<object, object>().SimplePath();            
         }
 
         /// <summary>
@@ -1037,7 +1099,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Store(string sideEffectKey)
         {
-            return new GraphTraversal<object, object>().Store(sideEffectKey);
+            return new GraphTraversal<object, object>().Store(sideEffectKey);            
         }
 
         /// <summary>
@@ -1045,7 +1107,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, Edge> Subgraph(string sideEffectKey)
         {
-            return new GraphTraversal<object, Edge>().Subgraph(sideEffectKey);
+            return new GraphTraversal<object, Edge>().Subgraph(sideEffectKey);            
         }
 
         /// <summary>
@@ -1053,7 +1115,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Sum<E2>()
         {
-            return new GraphTraversal<object, E2>().Sum<E2>();
+            return new GraphTraversal<object, E2>().Sum<E2>();            
         }
 
         /// <summary>
@@ -1061,7 +1123,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Sum<E2>(Scope scope)
         {
-            return new GraphTraversal<object, E2>().Sum<E2>(scope);
+            return new GraphTraversal<object, E2>().Sum<E2>(scope);            
         }
 
         /// <summary>
@@ -1069,7 +1131,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Tail<E2>()
         {
-            return new GraphTraversal<object, E2>().Tail();
+            return new GraphTraversal<object, E2>().Tail();            
         }
 
         /// <summary>
@@ -1077,7 +1139,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Tail<E2>(Scope scope)
         {
-            return new GraphTraversal<object, E2>().Tail<E2>(scope);
+            return new GraphTraversal<object, E2>().Tail<E2>(scope);            
         }
 
         /// <summary>
@@ -1085,7 +1147,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Tail<E2>(Scope scope, long limit)
         {
-            return new GraphTraversal<object, E2>().Tail<E2>(scope, limit);
+            return new GraphTraversal<object, E2>().Tail<E2>(scope, limit);            
         }
 
         /// <summary>
@@ -1093,7 +1155,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Tail<E2>(long limit)
         {
-            return new GraphTraversal<object, E2>().Tail(limit);
+            return new GraphTraversal<object, E2>().Tail(limit);            
         }
 
         /// <summary>
@@ -1101,7 +1163,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> TimeLimit(long timeLimit)
         {
-            return new GraphTraversal<object, object>().TimeLimit(timeLimit);
+            return new GraphTraversal<object, object>().TimeLimit(timeLimit);            
         }
 
         /// <summary>
@@ -1109,7 +1171,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Times(int maxLoops)
         {
-            return new GraphTraversal<object, object>().Times(maxLoops);
+            return new GraphTraversal<object, object>().Times(maxLoops);            
         }
 
         /// <summary>
@@ -1117,7 +1179,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, Vertex> To(Direction direction, params string[] edgeLabels)
         {
-            return new GraphTraversal<object, Vertex>().To(direction, edgeLabels);
+            return edgeLabels.Length == 0
+                ? new GraphTraversal<object, Vertex>().To(direction)
+                : new GraphTraversal<object, Vertex>().To(direction, edgeLabels);            
         }
 
         /// <summary>
@@ -1125,7 +1189,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, Edge> ToE(Direction direction, params string[] edgeLabels)
         {
-            return new GraphTraversal<object, Edge>().ToE(direction, edgeLabels);
+            return edgeLabels.Length == 0
+                ? new GraphTraversal<object, Edge>().ToE(direction)
+                : new GraphTraversal<object, Edge>().ToE(direction, edgeLabels);            
         }
 
         /// <summary>
@@ -1133,7 +1199,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, Vertex> ToV(Direction direction)
         {
-            return new GraphTraversal<object, Vertex>().ToV(direction);
+            return new GraphTraversal<object, Vertex>().ToV(direction);            
         }
 
         /// <summary>
@@ -1141,7 +1207,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Tree<E2>()
         {
-            return new GraphTraversal<object, E2>().Tree<E2>();
+            return new GraphTraversal<object, E2>().Tree<E2>();            
         }
 
         /// <summary>
@@ -1149,7 +1215,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Tree(string sideEffectKey)
         {
-            return new GraphTraversal<object, object>().Tree(sideEffectKey);
+            return new GraphTraversal<object, object>().Tree(sideEffectKey);            
         }
 
         /// <summary>
@@ -1157,7 +1223,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Unfold<E2>()
         {
-            return new GraphTraversal<object, E2>().Unfold<E2>();
+            return new GraphTraversal<object, E2>().Unfold<E2>();            
         }
 
         /// <summary>
@@ -1165,7 +1231,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Union<E2>(params ITraversal[] traversals)
         {
-            return new GraphTraversal<object, E2>().Union<E2>(traversals);
+            return traversals.Length == 0
+                ? new GraphTraversal<object, E2>().Union<E2>()
+                : new GraphTraversal<object, E2>().Union<E2>(traversals);            
         }
 
         /// <summary>
@@ -1173,7 +1241,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Until(TraversalPredicate untilPredicate)
         {
-            return new GraphTraversal<object, object>().Until(untilPredicate);
+            return new GraphTraversal<object, object>().Until(untilPredicate);            
         }
 
         /// <summary>
@@ -1181,7 +1249,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Until(ITraversal untilTraversal)
         {
-            return new GraphTraversal<object, object>().Until(untilTraversal);
+            return new GraphTraversal<object, object>().Until(untilTraversal);            
         }
 
         /// <summary>
@@ -1189,7 +1257,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Value<E2>()
         {
-            return new GraphTraversal<object, E2>().Value<E2>();
+            return new GraphTraversal<object, E2>().Value<E2>();            
         }
 
         /// <summary>
@@ -1197,7 +1265,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, IDictionary<string, E2>> ValueMap<E2>(params string[] propertyKeys)
         {
-            return new GraphTraversal<object, IDictionary<string, E2>>().ValueMap<E2>(propertyKeys);
+            return propertyKeys.Length == 0
+                ? new GraphTraversal<object, IDictionary<string, E2>>().ValueMap<E2>()
+                : new GraphTraversal<object, IDictionary<string, E2>>().ValueMap<E2>(propertyKeys);            
         }
 
         /// <summary>
@@ -1205,7 +1275,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, IDictionary<string, E2>> ValueMap<E2>(bool includeTokens, params string[] propertyKeys)
         {
-            return new GraphTraversal<object, IDictionary<string, E2>>().ValueMap<E2>(includeTokens, propertyKeys);
+            return propertyKeys.Length == 0
+                ? new GraphTraversal<object, IDictionary<string, E2>>().ValueMap<E2>(includeTokens)
+                : new GraphTraversal<object, IDictionary<string, E2>>().ValueMap<E2>(includeTokens, propertyKeys);            
         }
 
         /// <summary>
@@ -1213,7 +1285,9 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, E2> Values<E2>(params string[] propertyKeys)
         {
-            return new GraphTraversal<object, E2>().Values<E2>(propertyKeys);
+            return propertyKeys.Length == 0
+                ? new GraphTraversal<object, E2>().Values<E2>()
+                : new GraphTraversal<object, E2>().Values<E2>(propertyKeys);            
         }
 
         /// <summary>
@@ -1221,7 +1295,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Where(TraversalPredicate predicate)
         {
-            return new GraphTraversal<object, object>().Where(predicate);
+            return new GraphTraversal<object, object>().Where(predicate);            
         }
 
         /// <summary>
@@ -1229,7 +1303,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Where(string startKey, TraversalPredicate predicate)
         {
-            return new GraphTraversal<object, object>().Where(startKey, predicate);
+            return new GraphTraversal<object, object>().Where(startKey, predicate);            
         }
 
         /// <summary>
@@ -1237,7 +1311,7 @@ namespace Gremlin.Net.Process.Traversal
         /// </summary>
         public static GraphTraversal<object, object> Where(ITraversal whereTraversal)
         {
-            return new GraphTraversal<object, object>().Where(whereTraversal);
+            return new GraphTraversal<object, object>().Where(whereTraversal);            
         }
 
     }

@@ -30,6 +30,18 @@ namespace Gremlin.Net.IntegrationTest.Process.Traversal.BytecodeGeneration
     public class BytecodeGenerationTests
     {
         [Fact]
+        public void GraphTraversalStepsShouldUnrollParamsParameters()
+        {
+            var g = new Graph().Traversal();
+
+            var bytecode = g.V().HasLabel("firstLabel", "secondLabel", "thirdLabel").Bytecode;
+
+            Assert.Equal(0, bytecode.SourceInstructions.Count);
+            Assert.Equal(2, bytecode.StepInstructions.Count);
+            Assert.Equal(3, bytecode.StepInstructions[1].Arguments.Length);
+        }
+
+        [Fact]
         public void g_V_OutXcreatedX()
         {
             var g = new Graph().Traversal();
